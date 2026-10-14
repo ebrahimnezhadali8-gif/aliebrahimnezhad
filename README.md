@@ -77,6 +77,51 @@ npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-
   pure `cmdLogic.ts` module, unit-tested separately from the UI, and the
   banner/user output is sourced from `siteConfig` so it never goes stale.
 
+## 4d. Language, calendar and settings
+
+- **Two languages, real RTL.** Switching to Persian translates the whole
+  interface — chrome, window titles, app labels, about copy, project copy —
+  and flips `<html dir="rtl">`, so CSS logical properties and the reader both
+  pick it up. On a first visit the browser's own language decides.
+  Personal copy lives in `config/siteConfig.ts` (English) and `i18n/fa.ts`
+  (Persian); UI chrome lives in `i18n/strings.ts`, which is keyed off the
+  English object so a missing translation is impossible to add silently.
+  Switch it from the **taskbar**, the **Start menu** or **Settings**.
+- **Jalali (Shamsi) dates.** The taskbar clock and the phone status bar show a
+  one-tap toggle between the Gregorian and Solar Hijri calendars, rendered via
+  `Intl.DateTimeFormat("fa-IR-u-ca-persian")` (`utils/jalali.ts`) so Persian
+  digits and month names come straight from ICU.
+- **Settings, on both skins.** A Windows 7-style Control Panel window and an
+  iOS Settings app, wired to the *same* `DesktopSettingsContext`, so a change
+  made anywhere applies everywhere and survives a reload:
+
+  | Setting     | Windows                        | Phone                          |
+  |-------------|--------------------------------|--------------------------------|
+  | Wallpaper   | thumbnail picker + cycle        | gallery picker (iOS sky + desktop backgrounds) |
+  | Dark mode   | toggle switch, `data-theme`     | iOS switch                      |
+  | Brightness  | slider                          | slider + Control Center         |
+  | Volume      | slider                          | slider + Control Center         |
+  | Calendar    | Gregorian ⇄ Jalali              | Gregorian ⇄ Jalali              |
+  | Language    | English ⇄ فارسی                 | English ⇄ فارسی                 |
+
+  Dark mode is implemented in `styles/dark.css`, deliberately in one file: each
+  app owns its own light palette, and overriding the shared surfaces centrally
+  is far easier to keep consistent than retrofitting a variable everywhere.
+
+## 4e. Browsing the projects from inside the OS
+
+`components/Browser/BrowserView.tsx` renders each project **live** in an
+`<iframe>`, with two skins: **Internet Explorer** on the Windows desktop and
+**Safari** on the phone. Both have an address bar, back/forward, reload, and a
+favourites strip that switches between `workchi.ir`, `narvash.com` and
+`boomsv.ir`.
+
+Embedding is best-effort by nature — most production sites send
+`X-Frame-Options: DENY`, so the frame legitimately stays blank — so the chrome
+*always* shows an "Open in browser" escape hatch plus a one-line explanation
+rather than pretending. Open it from the desktop **Internet Explorer** icon or
+the phone's **Safari** icon.
+
 ## 4b. Content
 
 `siteConfig.projects` holds three published projects, each with a tagline, a
@@ -145,6 +190,16 @@ TypeScript will tell you if you break the shape.
 
 Replace `public/resume.pdf` with your real resume (same filename).
 
+### Adding a third language
+
+1. Copy `src/i18n/fa.ts` and translate the prose fields (only `id`, `title`,
+   `tagline`, `desc`, `highlights` and `linkLabel` — the rest is shared).
+2. Add `"xx"` to `Language` in `src/i18n/language.ts`, with a `directionFor`
+   case, then add it to `LANGUAGES`.
+3. Add an `xx` block to `src/i18n/strings.ts`. The type is derived from the
+   English object, so TypeScript will list every key you still owe.
+4. Add a branch to `getContent()` in `src/hooks/useContent.ts`.
+
 ## 6. Project structure
 
 ```
@@ -156,8 +211,16 @@ src/
   config/siteConfig.ts           ALL editable content (+ a config-integrity test)
 
   context/WindowManagerContext.tsx   Open/minimized/active window state (the core fix)
-  context/DesktopSettingsContext.tsx  Screen brightness state for the tray + desktop
+  context/DesktopSettingsContext.tsx  Brightness, volume, wallpaper, theme,
+                                      calendar and language — shared by both skins
   hooks/useDrag.ts, useClock.ts, useOutsideClick.ts, useWallpaperCycle.ts
+  hooks/useContent.ts                 Localised copy + t() helper for every screen
+
+  i18n/strings.ts                     Every UI string, English + Persian
+  i18n/fa.ts                          Persian personal copy (about, projects)
+  i18n/language.ts                    Language type, dir/lang mapping, storage key
+  utils/jalali.ts                     Jalali formatting via Intl fa-IR-u-ca-persian
+  utils/theme.ts                      Light/dark preference + storage key
 
   icons/iconPaths.tsx, Icon.tsx        Inline SVG icon set (official brand marks)
   public/brand/*.svg                   The same official logos as standalone files
@@ -165,6 +228,7 @@ src/
   utils/handleItemAction.ts             "open a window OR open a link" logic
   utils/sound.ts                         cuelume wrapper (open/close/minimize sounds)
   utils/brightness.ts                    Brightness clamping + persistence (pure)
+  utils/chunk.ts, paginate.ts            Home-screen row/page maths (pure)
 
   components/
     BootScreen/                 3-second boot animation
@@ -173,25 +237,30 @@ src/
     DesktopIcons/                 Responsive icon grid, hideable (not draggable)
     ContextMenu/                   Right-click menu (icons toggle, background, refresh)
     Taskbar/                     Start button, running/minimized app buttons, clock,
-                                  brightness + volume tray controls
-    StartMenu/                    Pinned items + external links
+                                  brightness + volume tray controls, language toggle
+    StartMenu/                    Pinned items, external links, language switch
     Window/                       Generic draggable window shell (open/minimize/close)
     ResumeWindow/                  Chrome-style PDF viewer with real zoom
     ProjectsWindow/                 Explorer-style project browser + detail modal
     AboutWindow/, SkillsWindow/, ContactWindow/
     CalculatorWindow/                Simple Windows 7-style calculator (new)
     CmdWindow/                        cmd.exe look-alike terminal (new)
+    IEWindow/                          Internet Explorer showing the projects live
+    SettingsWindow/                    Control-Panel-style settings hub
+    Browser/                          Shared browser chrome (IE + Safari flavours)
     ScreenDimmer/                     Shared brightness dimmer (both skins)
     mobile/                           iPhone-style skin for phones AND tablets
       MobileApp.tsx                     Viewport-filling root + pull-down gesture
       BootScreen/                        Apple logo + iOS progress bar
       HomeScreen/                        Squircle app icons, scroll-snap pages, dots
-      Dock/, StatusBar/, AppScreen/     iOS chrome
+      Dock/, StatusBar/, AppScreen/     iOS chrome (StatusBar carries calendar + language)
       ControlCenter/                     Drop-down panel: brightness, volume, switches
       apps/                              Résumé, Notes, Projects, About, Skills,
-                                         Calculator, Phone, Mail
-  utils/
-    paginate.ts                       Fixed-size paging for the home screen (pure)
+                                         Calculator, Phone, Mail, Safari, Settings
+
+  styles/
+    theme.css                    Global variables + RTL font stacks
+    dark.css                     Dark theme overrides for every surface
 
   test/
     setup.ts                    Vitest + jest-dom + cuelume mock + localStorage shim
@@ -215,6 +284,17 @@ where a bug would actually break the user experience:
   down precisely.
 - **ProjectsWindow** — listing, logo rendering, the detail modal (tagline,
   highlights, safe outbound `target="_blank"` link) and its close paths.
+- **SettingsWindow / SettingsApp** — every control actually changes the shared
+  state, persists to `localStorage`, and reflects back (dark mode sets
+  `data-theme` on `<html>`, Persian sets `dir="rtl"` and `lang="fa-IR"`).
+- **Clock** — Gregorian by default, Jalali with Persian digits after one tap.
+- **BrowserView** — the live frame points at the real project URL, favourites
+  switch sites, reload re-keys the frame, and the external escape hatch opens a
+  real tab. That the frame *can* stay blank is the point of the escape hatch.
+- **i18n** — every English key is translated, Persian has no extra keys, and
+  `getContent` keeps project ids/links/logos/tags identical across languages.
+- **jalali helpers** — digit conversion, both calendars describing the same
+  wall-clock time, and a working Persian calendar in this runtime.
 - **The phone/tablet skin** — splash → home screen handover, the absence of a
   device frame, iOS vs. brand icon tiles, page dots, pull-down Control Center
   (tap, keyboard and top-edge drag), brightness→dimmer wiring, volume
@@ -242,7 +322,7 @@ Purely presentational components with no real interaction risk (About,
 Skills, Contact display) are left untested, intentionally, to keep the suite
 focused on what actually protects the user experience.
 
-Current status: **247 tests passing across 30 test files.**
+Current status: **315 tests passing across 36 test files.**
 
 ## 8. Notes
 
