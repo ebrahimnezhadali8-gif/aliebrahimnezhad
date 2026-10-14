@@ -12,6 +12,15 @@
   --font-mono: "Consolas", "Cascadia Mono", "Courier New", monospace;
 }
 
+/* Persian text needs a font stack that actually has Arabic-script glyphs. */
+:root:lang(fa) {
+  --font-ui: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+:root[data-text-dir="rtl"] {
+  --font-ui: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -32,10 +41,43 @@ body {
   user-select: none;
 }
 
+/* Persian numerals and text keep their own line height — the default ASCII
+   metrics make Arabic script look cramped. */
+:root[data-text-dir="rtl"] body {
+  line-height: 1.7;
+}
+
+/*
+ * Persian: only the TEXT is right-to-left. <html> stays dir="ltr" so the shell
+ * (Start button, taskbar, windows, icon grids, app tiles) never mirrors.
+ * Block-level text and form fields get an rtl base direction (so punctuation and
+ * mixed Latin/Persian runs order correctly and prose aligns right); short labels
+ * inside flex rows use `plaintext` so they never change their box position.
+ */
+:root[data-text-dir="rtl"] :is(p, h1, h2, h3, h4, h5, h6, li, dd, dt, blockquote, figcaption, td, th, textarea, input:not([type="range"]):not([type="checkbox"])) {
+  direction: rtl;
+  text-align: right;
+}
+
+:root[data-text-dir="rtl"] :is(span, label, a, button, b, strong, small, em):not(.icon):not(.icon *) {
+  unicode-bidi: plaintext;
+}
+
+/* Things that must stay physical even in Persian: code, URLs, numbers fields. */
+:root[data-text-dir="rtl"] :is(code, pre, kbd, .cmd-window *, .browser__url, input[type="url"], input[type="email"], input[type="tel"]) {
+  direction: ltr;
+  text-align: left;
+}
+
 ::selection {
   background: transparent;
 }
 
 button {
   font-family: inherit;
+}
+
+/* Chrome that should read like the rest of the (unmirrored) shell. */
+:root[data-text-dir="rtl"] :is(.win7-window__title, .taskbar-app__label, .start-menu__label) {
+  text-align: left;
 }

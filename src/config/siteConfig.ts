@@ -155,6 +155,13 @@ The site's job is to make that first step frictionless — a clear path from "I 
     },
     { id: "cmd", label: "cmd", icon: "cmd", type: "window", target: "cmd" },
     {
+      id: "ie",
+      label: "internet explorer",
+      icon: "ie",
+      type: "window",
+      target: "ie",
+    },
+    {
       id: "github",
       label: "github",
       icon: "github",
@@ -194,6 +201,13 @@ The site's job is to make that first step frictionless — a clear path from "I 
   // Extra items that only appear inside the Start Menu.
   startMenuExtraItems: [
     {
+      id: "settings",
+      label: "Settings",
+      icon: "settings",
+      type: "window",
+      target: "settings",
+    },
+    {
       id: "google",
       label: "Google",
       icon: "google",
@@ -229,6 +243,8 @@ export const windowMeta: Record<string, WindowMeta> = {
     width: 620,
     height: 400,
   },
+  ie: { title: "Internet Explorer", icon: "ie", width: 920, height: 620 },
+  settings: { title: "Settings", icon: "settings", width: 520, height: 600 },
 };
 
 /** Domain of a project link, e.g. "https://workchi.ir" → "workchi.ir". */

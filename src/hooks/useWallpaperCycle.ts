@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+export const wallpaperImages = [
+  "/images/desctop1.webp",
+  "/images/desctop2.webp",
+  "/images/desctop3.webp",
+] as const;
 
-export const wallpaperImages = ["/images/desctop1.webp", "/images/desctop2.webp", "/images/desctop3.webp"] as const;
+/**
+ * The phone skin has its own gallery of phone-shaped wallpapers (the desktop
+ * ones are landscape and are never offered here). It never rotates by itself —
+ * the visitor picks one in Settings and it stays.
+ */
+export const MOBILE_WALLPAPERS = [
+  "/images/mobile/aurora.jpg",
+  "/images/mobile/waterfall.jpg",
+  "/images/mobile/milkyway.jpg",
+  "/images/mobile/lighthouse.jpg",
+] as const;
 
-const CYCLE_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes
-
-export function useWallpaperCycle() {
-  const [index, setIndex] = useState(0);
-
-  const next = useCallback(() => {
-    setIndex((prev) => (prev + 1) % wallpaperImages.length);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(next, CYCLE_INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, [next]);
-
-  return { wallpaper: wallpaperImages[index], next };
-}
+export const WALLPAPER_STORAGE_KEY = "portfolio:wallpaper";
+export const MOBILE_WALLPAPER_STORAGE_KEY = "portfolio:mobile-wallpaper";

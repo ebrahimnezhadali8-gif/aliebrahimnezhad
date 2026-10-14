@@ -1,0 +1,403 @@
+/*
+ * Dark theme, applied by setting `data-theme="dark"` on <html> (see
+ * DesktopSettingsContext). Collected in one file on purpose: the mobile app
+ * stylesheets each own their own light palette, and overriding the shared
+ * surfaces from a single place is far easier to keep consistent than
+ * retrofitting a variable into a dozen component stylesheets.
+ */
+
+[data-theme="dark"] body {
+  background: #0b0d12;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --glass-bg: rgba(27, 32, 42, 0.88);
+  --glass-border: rgba(140, 165, 205, 0.3);
+  --title-grad-1: #34405a;
+  --title-grad-2: #262f44;
+  --title-grad-3: #1b2336;
+  --accent: #5b9cf0;
+  --text-dark: #e6e9ef;
+  --text-mid: #a3b2c9;
+}
+
+/* Dim the wallpaper itself so bright artwork doesn't glare behind dark chrome. */
+[data-theme="dark"] .wallpaper {
+  filter: brightness(0.62) saturate(0.92);
+}
+
+/* -------------------------------------------------------- desktop chrome */
+[data-theme="dark"] .taskbar {
+  background: linear-gradient(180deg, rgba(26, 31, 44, 0.94), rgba(10, 13, 20, 0.97));
+  border-top-color: rgba(140, 165, 205, 0.3);
+}
+
+[data-theme="dark"] .win7-window__title,
+[data-theme="dark"] .start-menu__header b {
+  color: #e8eef9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .win7-window__titlebar,
+[data-theme="dark"] .start-menu__header {
+  border-bottom-color: rgba(140, 165, 205, 0.22);
+}
+
+[data-theme="dark"] .win7-window__btn:not(.win7-window__btn--close) {
+  background: linear-gradient(180deg, #46536f, #323d55);
+  border-color: rgba(160, 185, 225, 0.3);
+  color: #e1e9f6;
+}
+
+[data-theme="dark"] .win7-window__btn:not(.win7-window__btn--close):hover {
+  background: linear-gradient(180deg, #56658a, #3d4a68);
+}
+
+[data-theme="dark"] .win7-window__body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .win7-window__body::-webkit-scrollbar-thumb {
+  background: #4a5a78;
+  background-clip: content-box;
+}
+
+[data-theme="dark"] .start-menu__avatar {
+  background: linear-gradient(160deg, #4a6a9c, #2a3f66);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .start-menu__item:hover,
+[data-theme="dark"] .start-menu__lang:hover,
+[data-theme="dark"] .start-menu__power:hover,
+[data-theme="dark"] .context-menu button:hover,
+[data-theme="dark"] .tray-option:hover {
+  background: rgba(110, 160, 235, 0.28);
+}
+
+[data-theme="dark"] .start-menu__footer {
+  border-top-color: rgba(140, 165, 205, 0.22);
+}
+
+[data-theme="dark"] .start-menu__divider {
+  background: rgba(140, 165, 205, 0.22);
+}
+
+[data-theme="dark"] .start-menu__power,
+[data-theme="dark"] .start-menu__lang-icon,
+[data-theme="dark"] .start-menu__lang-value,
+[data-theme="dark"] .tray-option,
+[data-theme="dark"] .tray-popover__icon {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .start-menu__lang-value,
+[data-theme="dark"] .tray-option__check {
+  color: #7fb2ff;
+}
+
+[data-theme="dark"] .settings-window__lang:not(.settings-window__lang--active),
+[data-theme="dark"] .settings-window__ghost {
+  background: linear-gradient(180deg, #3b4560, #2b3449);
+  border-color: rgba(160, 185, 225, 0.3);
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .settings-window__lang--active {
+  background: linear-gradient(180deg, #4a90e8, #1c5fc0);
+  border-color: #164a9c;
+  color: #fff;
+}
+
+[data-theme="dark"] .settings-window__switch:not(.settings-window__switch--on) {
+  background: linear-gradient(180deg, #3a4150, #2a303c);
+  border-color: #4a5366;
+}
+
+[data-theme="dark"] .settings-window__value {
+  color: #7fb2ff;
+}
+
+/* ------------------------------------------------------------------ desktop */
+[data-theme="dark"] .win7-window__body {
+  background: #14171d;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .desktop-icon__label {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] .context-menu,
+[data-theme="dark"] .tray-popover {
+  background: rgba(30, 34, 43, 0.92);
+  border-color: rgba(140, 160, 200, 0.28);
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .context-menu button,
+[data-theme="dark"] .start-menu__label,
+[data-theme="dark"] .start-menu__lang,
+[data-theme="dark"] .tray-popover__pct {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .tray-popover__hint {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .about-window__name,
+[data-theme="dark"] .skills-window .skill-bar__name,
+[data-theme="dark"] .projects-window__sec-item,
+[data-theme="dark"] .project-item__label,
+[data-theme="dark"] .about-window__text p {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .about-window__role,
+[data-theme="dark"] .skills-window .skill-bar__pct,
+[data-theme="dark"] .projects-window__sec-title,
+[data-theme="dark"] .about-window__row,
+[data-theme="dark"] .contact-window__name,
+[data-theme="dark"] .contact-window__role {
+  color: #9fb0c8;
+}
+
+[data-theme="dark"] .about-window__text p,
+[data-theme="dark"] .contact-window__role {
+  color: #b9c6d8;
+}
+
+[data-theme="dark"] .about-window__stat,
+[data-theme="dark"] .about-window__contact,
+[data-theme="dark"] .contact-window {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(140, 160, 200, 0.2);
+}
+
+[data-theme="dark"] .projects-window__sidebar {
+  background: rgba(255, 255, 255, 0.04);
+  border-right-color: rgba(140, 160, 200, 0.18);
+}
+
+[data-theme="dark"] .skills-window .skill-bar__track {
+  background: #232833;
+  border-color: #2f3644;
+}
+
+[data-theme="dark"] .project-modal {
+  background: #171b22;
+  border-color: #2b3340;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .project-modal__body p,
+[data-theme="dark"] .project-modal__highlights {
+  color: #c3cddc;
+}
+
+[data-theme="dark"] .project-modal__section {
+  color: #8fa3bd;
+}
+
+[data-theme="dark"] .project-item:hover,
+[data-theme="dark"] .projects-window__sec-item--active {
+  background: rgba(120, 170, 240, 0.18);
+}
+
+[data-theme="dark"] .settings-window {
+  background: linear-gradient(180deg, #171b22, #10141a);
+}
+
+[data-theme="dark"] .settings-window__group {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(140, 160, 200, 0.18);
+}
+
+[data-theme="dark"] .settings-window__legend {
+  color: #9ec1f0;
+  background: linear-gradient(180deg, #1e2530, #1a202a);
+  border-bottom-color: rgba(140, 160, 200, 0.18);
+}
+
+[data-theme="dark"] .settings-window__label {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .settings-window__row + .settings-window__row {
+  border-top-color: rgba(140, 160, 200, 0.14);
+}
+
+[data-theme="dark"] .browser {
+  background: #14171d;
+}
+
+[data-theme="dark"] .browser--ie .browser__chrome,
+[data-theme="dark"] .browser--safari .browser__chrome {
+  background: linear-gradient(180deg, #2b313d, #1e232c);
+  border-bottom-color: #39414f;
+}
+
+[data-theme="dark"] .browser--ie .browser__url,
+[data-theme="dark"] .browser--ie .browser__fav,
+[data-theme="dark"] .browser--safari .browser__url {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .browser--ie .browser__addressbar {
+  background: #10141a;
+  border-color: #39414f;
+}
+
+[data-theme="dark"] .browser--safari .browser__addressbar {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .browser__fav--active {
+  background: rgba(120, 180, 255, 0.2);
+  border-color: rgba(160, 205, 255, 0.4);
+}
+
+[data-theme="dark"] .browser__hint {
+  color: #9fb0c8;
+  border-top-color: rgba(140, 160, 200, 0.2);
+}
+
+/* ------------------------------------------------------------------- mobile */
+[data-theme="dark"] .app-screen--light {
+  background: #0f1216;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .app-screen__title {
+  color: #f5f5f7;
+}
+
+[data-theme="dark"] .app-screen__body {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .about-app__name,
+[data-theme="dark"] .about-app__card p,
+[data-theme="dark"] .about-app__row,
+[data-theme="dark"] .phone-app__name,
+[data-theme="dark"] .notes-app__textarea,
+[data-theme="dark"] .skills-app__name,
+[data-theme="dark"] .projects-app__row-title,
+[data-theme="dark"] .projects-app__desc,
+[data-theme="dark"] .projects-app__highlights,
+[data-theme="dark"] .projects-app__tagline,
+[data-theme="dark"] .mail-app__input,
+[data-theme="dark"] .mail-app__body,
+[data-theme="dark"] .mail-app__recipient-addr,
+[data-theme="dark"] .settings-app__label {
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .about-app__role,
+[data-theme="dark"] .about-app__stat-lab,
+[data-theme="dark"] .about-app__stat-num,
+[data-theme="dark"] .projects-app__row-sub,
+[data-theme="dark"] .projects-app__section-label,
+[data-theme="dark"] .phone-app__number,
+[data-theme="dark"] .mail-app__label,
+[data-theme="dark"] .mail-app__recipient-label,
+[data-theme="dark"] .mail-app__note,
+[data-theme="dark"] .mail-app__length,
+[data-theme="dark"] .settings-app__legend {
+  color: #9aa5b6;
+}
+
+[data-theme="dark"] .about-app__card,
+[data-theme="dark"] .about-app__stat,
+[data-theme="dark"] .projects-app__list,
+[data-theme="dark"] .projects-app__detail,
+[data-theme="dark"] .notes-app__textarea,
+[data-theme="dark"] .mail-app,
+[data-theme="dark"] .settings-app__group {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .projects-app__row,
+[data-theme="dark"] .mail-app__row,
+[data-theme="dark"] .mail-app__recipient,
+[data-theme="dark"] .settings-app__row {
+  border-bottom-color: rgba(255, 255, 255, 0.09);
+  border-top-color: rgba(255, 255, 255, 0.09);
+}
+
+[data-theme="dark"] .settings-app__legend {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .mail-app__input,
+[data-theme="dark"] .mail-app__body,
+[data-theme="dark"] .notes-app__textarea {
+  background: transparent;
+}
+
+[data-theme="dark"] .mail-app__input::placeholder,
+[data-theme="dark"] .mail-app__body::placeholder,
+[data-theme="dark"] .notes-app__textarea::placeholder {
+  color: #6c7789;
+}
+
+[data-theme="dark"] .skills-app__track {
+  background: #262b34;
+  border-color: #333a45;
+}
+
+[data-theme="dark"] .settings-app__switch {
+  background: #3a4049;
+  border-color: #4a515c;
+}
+
+[data-theme="dark"] .settings-app__lang {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e6e9ef;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .settings-app__thumb--more {
+  background: #2a2f38;
+  color: #9aa5b6;
+}
+
+[data-theme="dark"] .mail-app__error {
+  background: rgba(192, 57, 43, 0.18);
+  color: #ff9b90;
+  border-color: rgba(255, 155, 144, 0.25);
+}
+
+/* The Control Center is already dark glass; just soften its scrim. */
+[data-theme="dark"] .mcc__scrim {
+  background: rgba(0, 0, 0, 0.35);
+}
+[data-theme="dark"] .messages-app {
+  background: #101319;
+}
+
+[data-theme="dark"] .messages-app__bubble--them {
+  background: #2a2f39;
+  border-color: #3a414e;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .messages-app__composer {
+  background: #1b2029;
+  border-top-color: #2d3441;
+}
+
+[data-theme="dark"] .messages-app__input {
+  background: #0d1015;
+  color: #e6e9ef;
+  border-color: #3a414e;
+}
+
+[data-theme="dark"] .messages-app__link {
+  background: rgba(255, 255, 255, 0.1);
+  color: #7fb2ff;
+}
