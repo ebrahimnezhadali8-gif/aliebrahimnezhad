@@ -16,31 +16,21 @@ describe("iOS home-screen icons", () => {
   it("every app has a label and a themed icon", () => {
     for (const item of [...homeScreenApps, ...dockApps]) {
       expect(item.label.trim().length).toBeGreaterThan(0);
-      expect(["system", "brand"]).toContain(item.theme.kind);
-      if (item.theme.kind === "system") {
-        // System tiles must supply a gradient, or the glyph lands on white.
-        expect(item.theme.background).toMatch(/gradient/);
-        expect(item.theme.ink).toBe("#ffffff");
-      } else {
-        expect(item.theme.background).toBeUndefined();
-      }
+      expect(["art", "brand"]).toContain(item.theme.kind);
+      expect(item.theme.background).toBeUndefined();
     }
   });
 
-  it("brand apps carry their real logo, everything else uses a white iOS glyph", () => {
-    // A glyph that is a full-bleed colour shape (Telegram's blue disc, LinkedIn's
-    // blue card) would look wrong on a gradient tile, so those get iOS versions.
-    const offLimits = new Set(["github", "instagram"]);
+  it("brand apps carry their real logo, everything else uses iPhone 4 artwork", () => {
+    const officialArtwork = new Set(["github", "instagram"]);
     for (const item of [...homeScreenApps, ...dockApps]) {
-      if (offLimits.has(item.icon)) continue;
-      expect(item.icon.startsWith("ios"), `${item.id} should use an iOS glyph`).toBe(true);
+      if (officialArtwork.has(item.icon)) {
+        expect(item.theme.kind).toBe("brand");
+      } else {
+        expect(item.theme.kind).toBe("art");
+        expect(item.icon.startsWith("ios4"), `${item.id} should use iOS 4 artwork`).toBe(true);
+      }
     }
-
-    // GitHub and Instagram keep their official artwork on a white tile.
-    const brandIcons = [...homeScreenApps, ...dockApps]
-      .filter((item) => item.theme.kind === "brand")
-      .map((item) => item.icon);
-    expect(new Set(brandIcons)).toEqual(new Set(["github", "instagram"]));
   });
 
   it("the dock holds exactly four slots, like iOS", () => {
@@ -52,11 +42,11 @@ describe("iOS home-screen icons", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("paints system icons with the gradient and the white ink colour", () => {
+  it("artwork icons draw their own background (no inline tile colour)", () => {
     bootHome();
     const tile = screen.getByTestId("app-icon-notes").querySelector(".app-icon__tile") as HTMLElement;
-    expect(tile.style.background).toContain("gradient");
-    expect(tile.style.color).toBe("rgb(255, 255, 255)");
+    expect(tile.style.background).toBe("");
+    expect(tile.querySelector("svg rect")).toBeInTheDocument();
   });
 
   it("leaves brand icons on an untinted (white) tile so the logo keeps its colours", () => {
@@ -124,11 +114,15 @@ describe("home-screen centring", () => {
       screen.getByTestId("mobile-home-pages").querySelectorAll(".mhome__row")
     );
     const partial = rows.filter((row) => row.className.includes("--partial"));
-    // 10 apps over 8-per-page => the last page has 2 icons in one partial row.
-    expect(partial).toHaveLength(1);
-    expect(partial[0].querySelectorAll(".app-icon")).toHaveLength(
-      homeScreenApps.length % ICONS_PER_ROW
-    );
+
+    // Only a last page that doesn't fill a whole row needs the flag.
+    const remainder = homeScreenApps.length % APPS_PER_PAGE;
+    const expected = remainder !== 0 && remainder % ICONS_PER_ROW !== 0 ? 1 : 0;
+    expect(partial).toHaveLength(expected);
+
+    for (const row of partial) {
+      expect(row.querySelectorAll(".app-icon").length).toBeLessThan(ICONS_PER_ROW);
+    }
   });
 
   it("renders every configured icon exactly once across all pages", () => {

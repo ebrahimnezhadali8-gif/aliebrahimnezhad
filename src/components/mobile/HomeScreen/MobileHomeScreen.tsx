@@ -3,6 +3,9 @@ import MobileStatusBar from "../StatusBar/MobileStatusBar";
 import AppIcon from "./AppIcon";
 import MobileDock from "../Dock/MobileDock";
 import { APPS_PER_PAGE, ICONS_PER_ROW, homeScreenApps, type MobileIconItem } from "../mobileTypes";
+import { useContent } from "../../../hooks/useContent";
+import type { UiStrings } from "../../../i18n/strings";
+import { useDesktopSettings } from "../../../context/DesktopSettingsContext";
 import { chunk } from "../../../utils/chunk";
 import { paginate } from "../../../utils/paginate";
 import "./MobileHomeScreen.css";
@@ -13,8 +16,46 @@ interface MobileHomeScreenProps {
   onOpenControlCenter?: () => void;
 }
 
+/** iOS apps keep their brand name; the system apps follow the interface language. */
+function appLabel(t: (key: keyof UiStrings) => string) {
+  return (item: MobileIconItem): string => {
+    switch (item.id) {
+      case "resume":
+        return t("resume");
+      case "notes":
+        return t("notes");
+      case "projects":
+        return t("projectsApp");
+      case "about":
+        return t("aboutApp");
+      case "skills":
+        return t("skills");
+      case "calculator":
+        return t("calculatorApp");
+      case "safari":
+        return t("safari");
+      case "settings":
+        return t("settingsApp");
+      case "dock-messages":
+        return t("messagesApp");
+      case "dock-phone":
+        return t("phone");
+      case "dock-mail":
+        return t("mail");
+      default:
+        // Brand names (GitHub, LinkedIn, Instagram, Telegram) stay as-is in
+        // every language — that is how they are actually written.
+        return item.label;
+    }
+  };
+}
+
 function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenProps) {
-  const pages = useMemo(() => paginate(homeScreenApps, APPS_PER_PAGE), []);
+  const { t } = useContent();
+  const { mobileWallpaper } = useDesktopSettings();
+  const label = useMemo(() => appLabel(t), [t]);
+
+  const pages = paginate(homeScreenApps, APPS_PER_PAGE);
   const [page, setPage] = useState(0);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -37,8 +78,12 @@ function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenP
   };
 
   return (
-    <div className="mhome" data-testid="mobile-home-screen">
-      <MobileStatusBar onClick={onOpenControlCenter} />
+    <div
+      className="mhome"
+      data-testid="mobile-home-screen"
+      style={{ backgroundImage: `url(${mobileWallpaper})` }}
+    >
+      <MobileStatusBar variant="light" onClick={onOpenControlCenter} />
 
       <div
         className="mhome__pages"
@@ -67,7 +112,12 @@ function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenP
                   data-testid={`mobile-home-row-${pageIndex}-${rowIndex}`}
                 >
                   {row.map((item) => (
-                    <AppIcon key={item.id} item={item} onActivate={onActivate} />
+                    <AppIcon
+                      key={item.id}
+                      item={item}
+                      label={label(item)}
+                      onActivate={onActivate}
+                    />
                   ))}
                 </div>
               ))}
@@ -95,7 +145,7 @@ function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenP
         ))}
       </div>
 
-      <MobileDock onActivate={onActivate} />
+      <MobileDock onActivate={onActivate} label={label} />
     </div>
   );
 }

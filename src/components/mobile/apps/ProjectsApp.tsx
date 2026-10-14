@@ -1,8 +1,9 @@
 import { useState } from "react";
 import AppScreen from "../AppScreen/AppScreen";
-import { projectDomain, siteConfig } from "../../../config/siteConfig";
+import { projectDomain } from "../../../config/siteConfig";
 import type { Project } from "../../../types";
 import Icon from "../../../icons/Icon";
+import { useContent } from "../../../hooks/useContent";
 import "./ProjectsApp.css";
 
 interface ProjectsAppProps {
@@ -10,6 +11,7 @@ interface ProjectsAppProps {
 }
 
 function ProjectsApp({ onBack }: ProjectsAppProps) {
+  const { content, t } = useContent();
   const [selected, setSelected] = useState<Project | null>(null);
 
   if (selected) {
@@ -30,14 +32,14 @@ function ProjectsApp({ onBack }: ProjectsAppProps) {
             </p>
           ))}
 
-          <div className="projects-app__section-label">Highlights</div>
+          <div className="projects-app__section-label">{t("highlights")}</div>
           <ul className="projects-app__highlights">
             {selected.highlights.map((highlight) => (
               <li key={highlight.slice(0, 32)}>{highlight}</li>
             ))}
           </ul>
 
-          <div className="projects-app__section-label">Technologies</div>
+          <div className="projects-app__section-label">{t("builtWith")}</div>
           <div className="projects-app__tags">
             {selected.tags.map((tag) => (
               <span key={tag}>{tag}</span>
@@ -59,9 +61,9 @@ function ProjectsApp({ onBack }: ProjectsAppProps) {
   }
 
   return (
-    <AppScreen title="Projects" onBack={onBack}>
+    <AppScreen title={t("projectsApp")} onBack={onBack}>
       <div className="projects-app__list">
-        {siteConfig.projects.map((project) => (
+        {content.projects.map((project) => (
           <button
             key={project.id}
             type="button"

@@ -8,7 +8,10 @@ export type MobileAppId =
   | "skills"
   | "calculator"
   | "phone"
-  | "mail";
+  | "mail"
+  | "safari"
+  | "messages"
+  | "settings";
 
 export type MobileAction =
   | { type: "app"; app: MobileAppId }
@@ -19,9 +22,10 @@ export type MobileAction =
  * icon on a home screen:
  *  - `system`  → a coloured gradient tile with a white glyph (Notes, Mail, …)
  *  - `brand`   → a white tile carrying the product's real logo (GitHub, Instagram, …)
+ *  - `art`     → full-bleed iPhone 4 artwork that paints its own background
  */
 export interface MobileIconTheme {
-  kind: "system" | "brand";
+  kind: "system" | "brand" | "art";
   /** `background` for system tiles; `none` so brand logos sit on white. */
   background?: string;
   /** Glyph colour on top of the tile. */
@@ -36,29 +40,28 @@ export interface MobileIconItem {
   action: MobileAction;
 }
 
-const system = (background: string): MobileIconTheme => ({
-  kind: "system",
-  background,
-  ink: "#ffffff",
-});
-
 const brand: MobileIconTheme = { kind: "brand" };
+
+/** Full-bleed iPhone 4 artwork: the icon draws its own background. */
+const art: MobileIconTheme = { kind: "art" };
 
 /**
  * Home screen — the same content as the desktop, re-skinned for iOS.
  * Six system apps on page one, the brand shortcuts on page two.
  */
 export const homeScreenApps: MobileIconItem[] = [
-  { id: "resume", label: "Résumé", icon: "iosDocument", theme: system("linear-gradient(180deg,#ff6f61 0%,#e5372c 55%,#c62828 100%)"), action: { type: "app", app: "resume" } },
-  { id: "notes", label: "Notes", icon: "iosNotes", theme: system("linear-gradient(180deg,#ffe680 0%,#f8c33c 55%,#eda908 100%)"), action: { type: "app", app: "notes" } },
-  { id: "projects", label: "Projects", icon: "iosFolder", theme: system("linear-gradient(180deg,#6fcbf7 0%,#1a8fe0 55%,#0a63c4 100%)"), action: { type: "app", app: "projects" } },
-  { id: "about", label: "About Me", icon: "iosUser", theme: system("linear-gradient(180deg,#a8d8ff 0%,#3f8ae6 55%,#1c5fd0 100%)"), action: { type: "app", app: "about" } },
-  { id: "skills", label: "Skills", icon: "iosSkills", theme: system("linear-gradient(180deg,#cfaaff 0%,#8b47ea 55%,#6320c7 100%)"), action: { type: "app", app: "skills" } },
-  { id: "calculator", label: "Calculator", icon: "iosCalculator", theme: system("linear-gradient(180deg,#55555c 0%,#26262b 55%,#101013 100%)"), action: { type: "app", app: "calculator" } },
+  { id: "resume", label: "Résumé", icon: "ios4Resume", theme: art, action: { type: "app", app: "resume" } },
+  { id: "notes", label: "Notes", icon: "ios4Notes", theme: art, action: { type: "app", app: "notes" } },
+  { id: "projects", label: "Projects", icon: "ios4Projects", theme: art, action: { type: "app", app: "projects" } },
+  { id: "about", label: "About Me", icon: "ios4About", theme: art, action: { type: "app", app: "about" } },
+  { id: "skills", label: "Skills", icon: "ios4Skills", theme: art, action: { type: "app", app: "skills" } },
+  { id: "calculator", label: "Calculator", icon: "ios4Calculator", theme: art, action: { type: "app", app: "calculator" } },
+  { id: "safari", label: "Safari", icon: "ios4Safari", theme: art, action: { type: "app", app: "safari" } },
   { id: "github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
-  { id: "linkedin", label: "LinkedIn", icon: "iosLinkedin", theme: system("linear-gradient(180deg,#2b7fd4 0%,#0a66c2 55%,#074a92 100%)"), action: { type: "link", target: "linkedin" } },
+  { id: "linkedin", label: "LinkedIn", icon: "ios4Linkedin", theme: art, action: { type: "link", target: "linkedin" } },
   { id: "instagram", label: "Instagram", icon: "instagram", theme: brand, action: { type: "link", target: "instagram" } },
-  { id: "telegram", label: "Telegram", icon: "iosTelegram", theme: system("linear-gradient(180deg,#4fc3f7 0%,#1c9ade 55%,#0d7cbb 100%)"), action: { type: "link", target: "telegram" } },
+  { id: "telegram", label: "Telegram", icon: "ios4Telegram", theme: art, action: { type: "link", target: "telegram" } },
+  { id: "settings", label: "Settings", icon: "ios4Settings", theme: art, action: { type: "app", app: "settings" } },
 ];
 
 /**
@@ -67,9 +70,9 @@ export const homeScreenApps: MobileIconItem[] = [
  * already on the home screen so nothing is duplicated.
  */
 export const dockApps: MobileIconItem[] = [
-  { id: "dock-phone", label: "Phone", icon: "iosPhone", theme: system("linear-gradient(180deg,#7ce88a 0%,#25b845 55%,#12872f 100%)"), action: { type: "app", app: "phone" } },
-  { id: "dock-mail", label: "Mail", icon: "iosMail", theme: system("linear-gradient(180deg,#6fcbf7 0%,#1a8fe0 55%,#0a63c4 100%)"), action: { type: "app", app: "mail" } },
-  { id: "dock-messages", label: "Messages", icon: "iosMessages", theme: system("linear-gradient(180deg,#8ce99a 0%,#2fc44e 55%,#189a33 100%)"), action: { type: "link", target: "telegram" } },
+  { id: "dock-phone", label: "Phone", icon: "ios4Phone", theme: art, action: { type: "app", app: "phone" } },
+  { id: "dock-mail", label: "Mail", icon: "ios4Mail", theme: art, action: { type: "app", app: "mail" } },
+  { id: "dock-messages", label: "Messages", icon: "ios4Messages", theme: art, action: { type: "app", app: "messages" } },
   { id: "dock-github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
 ];
 
@@ -82,6 +85,9 @@ export const APP_TITLES: Record<MobileAppId, string> = {
   calculator: "Calculator",
   phone: "Phone",
   mail: "Mail",
+  safari: "Safari",
+  messages: "Messages",
+  settings: "Settings",
 };
 
 /** Icons per row on the home screen — the iPhone 4 is exactly four wide. */

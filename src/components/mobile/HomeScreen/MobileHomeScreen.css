@@ -3,9 +3,12 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  /* The iPhone-era sky wallpaper. `center/cover` keeps it filling any
-     phone or tablet aspect ratio without letterboxing. */
-  background: #0b2f6d url("/images/ios-wallpaper.svg") center / cover no-repeat;
+  /* The wallpaper comes from the settings context (iPhone-era sky by default),
+     sized inline so `background-size` stays a CSS concern. */
+  background-color: #0b2f6d;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   /* Room for the home indicator so it never sits on top of the dock. */
   padding-bottom: 16px;
 }

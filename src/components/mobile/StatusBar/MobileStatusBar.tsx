@@ -1,4 +1,9 @@
+import Icon from "../../../icons/Icon";
 import { useClock } from "../../../hooks/useClock";
+import { useDesktopSettings } from "../../../context/DesktopSettingsContext";
+import { formatDate, formatTime } from "../../../utils/jalali";
+import { useMobileShell } from "../MobileShellContext";
+import { useContent } from "../../../hooks/useContent";
 import "./MobileStatusBar.css";
 
 interface MobileStatusBarProps {
@@ -10,9 +15,12 @@ interface MobileStatusBarProps {
 
 function MobileStatusBar({ variant = "dark", onClick }: MobileStatusBarProps) {
   const now = useClock();
-  const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+  const { calendar } = useDesktopSettings();
+  const { t } = useContent();
+  const shell = useMobileShell();
 
   const interactive = Boolean(onClick);
+  const date = formatDate(now, calendar);
 
   return (
     <div
@@ -34,7 +42,29 @@ function MobileStatusBar({ variant = "dark", onClick }: MobileStatusBarProps) {
           }
         : {})}
     >
-      <span className="mstatus__time">{time}</span>
+      <span className="mstatus__time">{formatTime(now, calendar)}</span>
+
+      {shell && (
+        <button
+          type="button"
+          className="mstatus__gear"
+          aria-label={t("settings")}
+          title={t("settings")}
+          data-testid="status-settings"
+          data-cuelume-press
+          onClick={(e) => {
+            e.stopPropagation();
+            shell.openSettings();
+          }}
+        >
+          <Icon name="gear" />
+        </button>
+      )}
+
+      <span className="mstatus__date" data-testid="status-date">
+        {date}
+      </span>
+
       <span className="mstatus__right" aria-hidden="true">
         <svg className="mstatus__signal" viewBox="0 0 20 12">
           <rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor" />
@@ -42,11 +72,11 @@ function MobileStatusBar({ variant = "dark", onClick }: MobileStatusBarProps) {
           <rect x="9" y="3" width="3" height="9" rx="0.5" fill="currentColor" />
           <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="currentColor" />
         </svg>
-        <svg className="mstatus__wifi" viewBox="0 0 24 24">
-          <path
-            fill="currentColor"
-            d="M12 18.4a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8Zm0-7.8c2.3 0 4.5.9 6.1 2.4a1.4 1.4 0 0 0 2-2A12 12 0 0 0 12 7.2c-3 0-5.8 1.1-8 3.1a1.4 1.4 0 0 0 2 2 8.6 8.6 0 0 1 6-1.7Zm0-6.4c3.9 0 7.6 1.5 10.4 4a1.4 1.4 0 1 0 2-2A17 17 0 0 0 12 1.4a17 17 0 0 0-12.4 4.8 1.4 1.4 0 0 0 2 2A15.4 15.4 0 0 1 12 4.2Z"
-          />
+        <svg className="mstatus__wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+          <path d="M2.5 9.2a14 14 0 0 1 19 0" />
+          <path d="M5.8 12.9a9.2 9.2 0 0 1 12.4 0" />
+          <path d="M9.1 16.4a4.6 4.6 0 0 1 5.8 0" />
+          <circle cx="12" cy="20" r="1.5" fill="currentColor" stroke="none" />
         </svg>
         <svg className="mstatus__battery" viewBox="0 0 27 13">
           <rect

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AppScreen from "../AppScreen/AppScreen";
 import Icon from "../../../icons/Icon";
-import { siteConfig } from "../../../config/siteConfig";
+import { useContent } from "../../../hooks/useContent";
 import "./SkillsApp.css";
 
 interface SkillsAppProps {
@@ -9,17 +9,18 @@ interface SkillsAppProps {
 }
 
 function SkillsApp({ onBack }: SkillsAppProps) {
+  const { content, t } = useContent();
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setAnimate(true), 150);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setAnimate(true), 150);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <AppScreen title="Skills" onBack={onBack}>
+    <AppScreen title={t("skills")} onBack={onBack}>
       <div className="skills-app">
-        {siteConfig.skills.map((skill) => (
+        {content.skills.map((skill) => (
           <div className="skills-app__row" key={skill.name}>
             <div className="skills-app__head">
               <span className="skills-app__icon">

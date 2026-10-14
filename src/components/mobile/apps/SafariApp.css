@@ -1,0 +1,9 @@
+.safari-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.safari-app .browser {
+  height: 100%;
+}

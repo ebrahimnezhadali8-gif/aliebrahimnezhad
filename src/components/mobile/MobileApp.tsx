@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import MobileBootScreen from "./BootScreen/MobileBootScreen";
 import MobileHomeScreen from "./HomeScreen/MobileHomeScreen";
 import MobileControlCenter from "./ControlCenter/MobileControlCenter";
@@ -11,7 +11,11 @@ import SkillsApp from "./apps/SkillsApp";
 import CalculatorApp from "./apps/CalculatorApp";
 import PhoneApp from "./apps/PhoneApp";
 import MailApp from "./apps/MailApp";
-import type { MobileAppId, MobileIconItem } from "./mobileTypes";
+import SafariApp from "./apps/SafariApp";
+import SettingsApp from "./apps/SettingsApp";
+import MessagesApp from "./apps/MessagesApp";
+import { MobileShellContext } from "./MobileShellContext";
+import { type MobileAppId, type MobileIconItem } from "./mobileTypes";
 import { siteConfig } from "../../config/siteConfig";
 import type { SiteLinks } from "../../types";
 import "./MobileApp.css";
@@ -62,6 +66,11 @@ function MobileApp() {
     pullStartY.current = null;
   };
 
+  const shell = useMemo(
+    () => (activeApp === "settings" ? null : { openSettings: () => { setActiveApp("settings"); setControlCenterOpen(false); } }),
+    [activeApp]
+  );
+
   const renderApp = () => {
     switch (activeApp) {
       case "resume":
@@ -80,12 +89,19 @@ function MobileApp() {
         return <PhoneApp onBack={goHome} />;
       case "mail":
         return <MailApp onBack={goHome} />;
+      case "safari":
+        return <SafariApp onBack={goHome} />;
+      case "messages":
+        return <MessagesApp onBack={goHome} />;
+      case "settings":
+        return <SettingsApp onBack={goHome} />;
       default:
         return null;
     }
   };
 
   return (
+    <MobileShellContext.Provider value={shell}>
     <div
       className="mobile-root"
       data-testid="mobile-root"
@@ -104,10 +120,7 @@ function MobileApp() {
           />
           {activeApp && renderApp()}
           <ScreenDimmer />
-          <MobileControlCenter
-            open={controlCenterOpen}
-            onClose={() => setControlCenterOpen(false)}
-          />
+          <MobileControlCenter open={controlCenterOpen} onClose={() => setControlCenterOpen(false)} />
           {/* iOS home indicator: tapping it returns to the home screen. */}
           <button
             type="button"
@@ -119,6 +132,7 @@ function MobileApp() {
         </>
       )}
     </div>
+    </MobileShellContext.Provider>
   );
 }
 

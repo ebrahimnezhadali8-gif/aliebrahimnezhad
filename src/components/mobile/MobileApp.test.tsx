@@ -2,6 +2,7 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import MobileApp from "./MobileApp";
 import { DesktopSettingsProvider } from "../../context/DesktopSettingsContext";
+import { siteConfig } from "../../config/siteConfig";
 import { APP_TITLES, homeScreenApps } from "./mobileTypes";
 
 function renderApp() {
@@ -30,6 +31,7 @@ describe("MobileApp", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
+    document.documentElement.removeAttribute("dir");
   });
 
   describe("splash screen", () => {
@@ -78,12 +80,11 @@ describe("MobileApp", () => {
       }
     });
 
-    it("uses iOS tiles: system apps get a coloured tile, brand apps get their real logo", () => {
+    it("uses iOS tiles: apps get iPhone 4 artwork, brand apps get their real logo", () => {
       bootToHome();
       const notes = screen.getByTestId("app-icon-notes");
-      expect(notes).toHaveClass("app-icon--system");
-      const notesTile = notes.querySelector(".app-icon__tile") as HTMLElement;
-      expect(notesTile.style.background).toContain("gradient");
+      expect(notes).toHaveClass("app-icon--art");
+      expect(notes.querySelector(".app-icon__tile svg")).toBeInTheDocument();
 
       const github = screen.getByTestId("app-icon-github");
       expect(github).toHaveClass("app-icon--brand");
@@ -146,11 +147,68 @@ describe("MobileApp", () => {
       expect(openSpy).toHaveBeenCalledWith(expect.stringContaining("http"), "_blank", "noopener");
     });
 
+    it("Messages opens the built-in chat (not Telegram) and answers the first message", () => {
+      const open = vi.spyOn(window, "open").mockImplementation(() => null);
+      bootToHome();
+      fireEvent.click(screen.getByTestId("app-icon-dock-messages"));
+      expect(screen.getByTestId("mobile-messages")).toBeInTheDocument();
+      expect(open).not.toHaveBeenCalled();
+
+      fireEvent.change(screen.getByTestId("messages-input"), { target: { value: "Hello Ali" } });
+      fireEvent.click(screen.getByTestId("messages-send"));
+      expect(screen.getByTestId("message-me")).toHaveTextContent("Hello Ali");
+
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+      expect(screen.getByTestId("message-ali")).toBeInTheDocument();
+    });
+
+    it("the status-bar gear opens Settings", () => {
+      bootToHome();
+      fireEvent.click(screen.getAllByTestId("status-settings")[0]);
+      expect(screen.getByTestId("mobile-settings")).toBeInTheDocument();
+    });
+
     it("the Mail app is reachable from the dock and can really compose a message", () => {
       bootToHome();
       fireEvent.click(screen.getByTestId("app-icon-dock-mail"));
       expect(screen.getByTestId("mail-compose")).toBeInTheDocument();
       expect(screen.getByTestId("mail-send")).toHaveAttribute("href");
+    });
+
+    it("Safari opens an in-OS browser showing the projects live", () => {
+      bootToHome();
+      fireEvent.click(screen.getByTestId("app-icon-safari"));
+      expect(screen.getByTestId("safari-browser")).toBeInTheDocument();
+      expect(screen.getByTestId("browser-frame")).toHaveAttribute(
+        "src",
+        siteConfig.projects[0].link
+      );
+    });
+
+    it("Settings opens from the home screen and exposes every preference", () => {
+      bootToHome();
+      fireEvent.click(screen.getByTestId("app-icon-settings"));
+      expect(screen.getByTestId("mobile-settings")).toBeInTheDocument();
+      expect(screen.getByTestId("mobile-settings-brightness")).toBeInTheDocument();
+      expect(screen.getByTestId("mobile-settings-dark")).toBeInTheDocument();
+      expect(screen.getByTestId("mobile-settings-calendar-jalali")).toBeInTheDocument();
+      expect(screen.getByTestId("mobile-settings-lang-fa")).toBeInTheDocument();
+    });
+  });
+
+  describe("language and calendar from the home screen", () => {
+    it("language and calendar are only switchable inside Settings", () => {
+      bootToHome();
+      expect(screen.queryByTestId("status-language")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("status-calendar")).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId("app-icon-settings"));
+      fireEvent.click(screen.getByTestId("mobile-settings-lang-fa"));
+      expect(document.documentElement.dataset.textDir).toBe("rtl");
+      fireEvent.click(screen.getByTestId("mobile-settings-calendar-jalali"));
+      expect(screen.getAllByTestId("status-date")[0]).toHaveTextContent(/[۰-۹]/);
     });
   });
 

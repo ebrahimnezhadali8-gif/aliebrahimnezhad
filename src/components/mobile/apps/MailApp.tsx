@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import AppScreen from "../AppScreen/AppScreen";
-import { siteConfig } from "../../../config/siteConfig";
+import { useContent } from "../../../hooks/useContent";
 import {
   MAILTO_SAFE_LIMIT,
   buildMailtoHref,
@@ -15,9 +15,7 @@ interface MailAppProps {
   onBack: () => void;
 }
 
-type DraftProblemField = "recipient" | "from" | "subject" | "body";
-
-const EMPTY_DRAFT: MailDraft = { to: siteConfig.email, from: "", subject: "", body: "" };
+const emptyDraft = (to: string): MailDraft => ({ to, from: "", subject: "", body: "" });
 
 /**
  * A genuinely sendable compose sheet.
@@ -28,7 +26,8 @@ const EMPTY_DRAFT: MailDraft = { to: siteConfig.email, from: "", subject: "", bo
  * clients would truncate, and says plainly what happens after sending.
  */
 function MailApp({ onBack }: MailAppProps) {
-  const [draft, setDraft] = useState<MailDraft>(EMPTY_DRAFT);
+  const { content, t } = useContent();
+  const [draft, setDraft] = useState<MailDraft>(() => emptyDraft(content.email));
   const [showErrors, setShowErrors] = useState(false);
   const [sent, setSent] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -44,7 +43,7 @@ function MailApp({ onBack }: MailAppProps) {
 
   const copyAddress = async () => {
     try {
-      await navigator.clipboard?.writeText(siteConfig.email);
+      await navigator.clipboard?.writeText(content.email);
       setCopied(true);
     } catch {
       // Clipboard blocked (http / older browser) — the address is still
@@ -53,11 +52,11 @@ function MailApp({ onBack }: MailAppProps) {
     }
   };
 
-  const errorFor = (field: DraftProblemField) =>
+  const errorFor = (field: "recipient" | "subject" | "body") =>
     showErrors ? problems.find((problem) => problem.field === field)?.message : undefined;
 
   return (
-    <AppScreen title="Mail" onBack={onBack}>
+    <AppScreen title={t("mail")} onBack={onBack}>
       <form
         className="mail-app"
         data-testid="mail-compose"
@@ -65,9 +64,9 @@ function MailApp({ onBack }: MailAppProps) {
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="mail-app__recipient">
-          <span className="mail-app__recipient-label">To</span>
-          <a className="mail-app__recipient-addr" href={`mailto:${siteConfig.email}`}>
-            {siteConfig.email}
+          <span className="mail-app__recipient-label">{t("to")}</span>
+          <a className="mail-app__recipient-addr" href={`mailto:${content.email}`}>
+            {content.email}
           </a>
           <button
             type="button"
@@ -75,30 +74,30 @@ function MailApp({ onBack }: MailAppProps) {
             onClick={copyAddress}
             data-testid="mail-copy-address"
           >
-            {copied ? "Copied" : "Copy"}
+            {copied ? t("copied") : t("copy")}
           </button>
         </div>
 
         <label className="mail-app__row">
-          <span className="mail-app__label">From</span>
+          <span className="mail-app__label">{t("from")}</span>
           <input
             className="mail-app__input"
             value={draft.from}
             onChange={(e) => update("from")(e.target.value)}
-            placeholder="Your name"
-            aria-label="Your name"
+            placeholder={t("yourName")}
+            aria-label={t("yourName")}
             autoComplete="name"
           />
         </label>
 
         <label className="mail-app__row">
-          <span className="mail-app__label">Subject</span>
+          <span className="mail-app__label">{t("subject")}</span>
           <input
             className="mail-app__input"
             value={draft.subject}
             onChange={(e) => update("subject")(e.target.value)}
-            placeholder="What is this about?"
-            aria-label="Subject"
+            placeholder={t("subjectPlaceholder")}
+            aria-label={t("subject")}
           />
         </label>
         {errorFor("subject") && (
@@ -111,8 +110,8 @@ function MailApp({ onBack }: MailAppProps) {
           className="mail-app__body"
           value={draft.body}
           onChange={(e) => update("body")(e.target.value)}
-          placeholder={`Write your message to ${siteConfig.name}…`}
-          aria-label="Message"
+          placeholder={`${t("messagePlaceholder")} ${content.name}`}
+          aria-label={t("message")}
           rows={10}
         />
         {errorFor("body") && (
@@ -136,20 +135,18 @@ function MailApp({ onBack }: MailAppProps) {
             if (problems.length === 0) setSent(true);
           }}
         >
-          Send to {siteConfig.name}
+          {t("sendTo")} {content.name}
         </a>
 
         <p className="mail-app__note">
           {sent ? (
             <>
-              Your mail app should have opened with the message ready. If nothing happened, email{" "}
-              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> directly.
+              {t("mailSentNote")} <a href={`mailto:${content.email}`}>{content.email}</a>
             </>
           ) : (
             <>
-              Sending opens your own mail app with everything pre-filled — nothing is stored on
-              this site. Prefer writing directly?{" "}
-              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              {t("mailNote")} {t("mailOr")}{" "}
+              <a href={`mailto:${content.email}`}>{content.email}</a>
             </>
           )}
         </p>

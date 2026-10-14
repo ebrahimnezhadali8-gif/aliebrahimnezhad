@@ -164,3 +164,14 @@
     font-size: 12px;
   }
 }
+
+/* iPhone 4 artwork paints its own 60×60 background, so it fills the tile. */
+.app-icon--art .app-icon__tile {
+  background: transparent;
+}
+
+.app-icon--art .app-icon__glyph .icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
