@@ -1,0 +1,121 @@
+.win7-window {
+  position: absolute;
+  min-width: 260px;
+  /* background: var(--glass-bg); */
+  border: 1px solid var(--glass-border);
+  border-radius: 8px 8px 6px 6px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.win7-window--active {
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+}
+
+.win7-window__titlebar {
+  height: 34px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px 0 10px;
+  background: linear-gradient(180deg, var(--title-grad-1), var(--title-grad-2) 55%, var(--title-grad-3));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: default;
+}
+
+.win7-window__ticon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.win7-window__ticon .icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.win7-window__title {
+  flex: 1 1 auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #16305c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.win7-window__btns {
+  display: flex;
+  gap: 3px;
+}
+
+.win7-window__btn {
+  width: 26px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, #fafdff, #c9e0f5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  color: #2a3d55;
+  padding: 0;
+}
+
+.win7-window__btn:hover {
+  background: linear-gradient(180deg, #ffffff, #d7ecff);
+}
+
+.win7-window__btn--close {
+  background: linear-gradient(180deg, #f3a9a4, #d3453b);
+  color: #fff;
+}
+
+.win7-window__btn--close:hover {
+  background: linear-gradient(180deg, #ff8a82, #e8342a);
+}
+
+.win7-window__body {
+  flex: 1 1 auto;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.win7-window__body::-webkit-scrollbar {
+  width: 11px;
+}
+
+.win7-window__body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.win7-window__body::-webkit-scrollbar-thumb {
+  background: #a9c4e6;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.win7-window--maximized {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: calc(100vh - var(--taskbar-h)) !important;
+  border-radius: 0 !important;
+}
+
+.win7-window--maximized .win7-window__body {
+  max-height: none !important;
+  height: calc(100% - 35px); 
+}

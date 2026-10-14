@@ -1,0 +1,60 @@
+.phone-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.phone-app__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.phone-app__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-app__name {
+  font-size: 21px;
+  font-weight: 700;
+  color: #1c1c1e;
+  margin-top: 16px;
+}
+
+.phone-app__number {
+  font-size: 16px;
+  color: #6b6b70;
+  margin-top: 4px;
+  margin-bottom: 34px;
+}
+
+.phone-app__call {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #34c759;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 13px 34px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.35);
+}
+
+.phone-app__call svg {
+  width: 18px;
+  height: 18px;
+}
+
+.phone-app__call:active {
+  background: #2aa648;
+}

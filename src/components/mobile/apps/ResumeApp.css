@@ -1,0 +1,51 @@
+.resume-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Mobile browsers (iOS Safari, Android Chrome) frequently render an embedded PDF
+   blank or as a single un-scrollable page, so the real actions live in a bar
+   that always works: open the file in the browser's own viewer, or save it. */
+.resume-app__bar {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f2f2f7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.resume-app__action {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4aa3ff, #0a6fe0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.resume-app__action--secondary {
+  color: #007aff;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.resume-app__action:active {
+  opacity: 0.6;
+}
+
+.resume-app__frame {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: none;
+  display: block;
+  background: #2b2b2b;
+}

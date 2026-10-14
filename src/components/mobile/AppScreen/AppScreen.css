@@ -1,0 +1,105 @@
+.app-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  animation: app-screen-in 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes app-screen-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.app-screen--light {
+  background: #f2f2f7;
+}
+
+.app-screen--dark {
+  background: #0c0c0e;
+}
+
+.app-screen__header {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  flex: 0 0 auto;
+  min-height: 34px;
+}
+
+.app-screen__back {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  border: none;
+  background: transparent;
+  color: #007aff;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  padding: 6px 4px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-screen__back:active {
+  opacity: 0.4;
+}
+
+.app-screen__back svg {
+  width: 20px;
+  height: 20px;
+}
+
+.app-screen__title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: #1c1c1e;
+  margin-right: 58px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.app-screen--dark .app-screen__title {
+  color: #f5f5f7;
+}
+
+.app-screen__spacer {
+  width: 58px;
+  flex: 0 0 auto;
+}
+
+.app-screen__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 12px 16px 24px;
+  box-sizing: border-box;
+}
+
+.app-screen__body--flush {
+  padding: 0;
+}
+
+/* On wider (tablet-range) viewports, content is centered at a comfortable
+   reading width instead of stretching edge-to-edge, and gets a bit more
+   breathing room — the same "grow, don't just repeat the phone layout"
+   responsiveness applied to the home screen grid and dock. */
+@media (min-width: 640px) {
+  .app-screen__body:not(.app-screen__body--flush) {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 28px 32px;
+  }
+}

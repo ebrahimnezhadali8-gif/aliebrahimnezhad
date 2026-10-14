@@ -1,0 +1,29 @@
+.desktop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.desktop--visible {
+  opacity: 1;
+}
+
+.desktop__refresh-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 96;
+  animation: desktop-refresh-fade 0.22s ease-out;
+}
+
+@keyframes desktop-refresh-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

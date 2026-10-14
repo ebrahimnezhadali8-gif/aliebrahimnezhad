@@ -1,0 +1,172 @@
+.mcc__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.12);
+  animation: mcc-fade-in 0.22s ease;
+}
+
+/* The panel itself drops in from the top edge, like pulling down Control Center. */
+.mcc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 51;
+  padding: 34px 16px 20px;
+  background: rgba(38, 42, 52, 0.72);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0 0 22px 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  color: #fff;
+  animation: mcc-drop-in 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes mcc-drop-in {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mcc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mcc__sliders {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.mcc__slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 150px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mcc__slider-icon {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  flex: 0 0 auto;
+}
+
+.mcc__slider-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* iOS sliders are thick vertical tracks, not a horizontal native input. */
+.mcc__range {
+  appearance: none;
+  -webkit-appearance: none;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 30px;
+  height: 108px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.24);
+  cursor: pointer;
+  accent-color: #fff;
+}
+
+.mcc__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: grab;
+}
+
+.mcc__range::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.mcc__toggles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.mcc__toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 6px 9px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  appearance: none;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.mcc__toggle:active {
+  transform: scale(0.95);
+}
+
+.mcc__toggle--on {
+  background: #fff;
+  color: #1c1c1e;
+}
+
+.mcc__toggle-icon {
+  display: flex;
+}
+
+.mcc__toggle-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.mcc__toggle-label {
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.mcc__hint {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 640px) {
+  .mcc {
+    padding: 40px 28px 24px;
+  }
+
+  .mcc__slider {
+    height: 168px;
+  }
+}

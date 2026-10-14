@@ -1,0 +1,41 @@
+:root {
+  --taskbar-h: 42px;
+  --glass-bg: rgba(226, 238, 252, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --title-grad-1: #dcebfb;
+  --title-grad-2: #a9cdf3;
+  --title-grad-3: #7fb1ea;
+  --accent: #1c5fc4;
+  --text-dark: #1b2431;
+  --text-mid: #43506a;
+  --font-ui: "Segoe UI", "Tahoma", "Vazirmatn", Arial, sans-serif;
+  --font-mono: "Consolas", "Cascadia Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+::selection {
+  background: transparent;
+}
+
+button {
+  font-family: inherit;
+}

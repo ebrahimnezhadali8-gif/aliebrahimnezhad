@@ -1,0 +1,54 @@
+.skills-app {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.skills-app__row {
+  margin-bottom: 16px;
+}
+
+.skills-app__row:last-child {
+  margin-bottom: 0;
+}
+
+.skills-app__head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 6px;
+}
+
+.skills-app__icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.skills-app__name {
+  flex: 1;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1c1c1e;
+}
+
+.skills-app__pct {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #3f8ce0;
+}
+
+.skills-app__track {
+  height: 9px;
+  border-radius: 5px;
+  background: #eceef1;
+  overflow: hidden;
+}
+
+.skills-app__fill {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #7fb4e8, #3f8ce0);
+  transition: width 0.9s ease;
+}

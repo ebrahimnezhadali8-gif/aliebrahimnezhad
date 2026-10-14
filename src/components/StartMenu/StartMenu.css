@@ -1,0 +1,129 @@
+.start-menu {
+  position: fixed;
+  left: 8px;
+  bottom: calc(var(--taskbar-h) + 6px);
+  width: 300px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px 8px 4px 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  overflow: hidden;
+  z-index: 110;
+}
+
+.start-menu__header {
+  padding: 12px 14px;
+  background: linear-gradient(180deg, var(--title-grad-1), var(--title-grad-2) 60%, var(--title-grad-3));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.start-menu__header b {
+  font-size: 13px;
+  color: #16305c;
+}
+
+.start-menu__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
+  background: linear-gradient(160deg, #9fc4ee, #4f7fc7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+
+.start-menu__avatar .icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.start-menu__list {
+  padding: 6px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.start-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  appearance: none;
+}
+
+.start-menu__item:hover {
+  background: rgba(140, 190, 250, 0.35);
+}
+
+.start-menu__icon {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+
+.start-menu__icon .icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.start-menu__label {
+  font-size: 12.5px;
+  color: #1c2c46;
+  font-weight: 600;
+}
+
+.start-menu__divider {
+  height: 1px;
+  background: rgba(120, 150, 190, 0.3);
+  margin: 5px 8px;
+}
+
+.start-menu__footer {
+  border-top: 1px solid rgba(120, 150, 190, 0.3);
+  padding: 6px;
+}
+
+.start-menu__power {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #7a1f1f;
+  font-size: 12.5px;
+  font-weight: 700;
+  appearance: none;
+}
+
+.start-menu__power:hover {
+  background: rgba(230, 120, 120, 0.25);
+}
+
+.start-menu__power-icon {
+  width: 20px;
+  height: 20px;
+  color: #b23c3c;
+}
+
+.start-menu__power-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}

@@ -1,0 +1,124 @@
+/* iPhone Calculator proportions: pure black screen, a modest display pinned to
+   the top-right, and a centred block of round keys at the bottom. Sized off the
+   iPhone 4 ratio (72pt keys on a 320pt screen) so it doesn't balloon on bigger
+   phones or tablets. */
+.ios-calc {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 14px 14px;
+  background: #000;
+  box-sizing: border-box;
+  max-width: 360px;
+  margin: 0 auto;
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+.ios-calc__display {
+  flex: 0 0 auto;
+  text-align: right;
+  color: #fff;
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 300;
+  letter-spacing: -1px;
+  padding: 0 4px 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Each row is its own flex container, so every row sizes its buttons
+   independently — a wide "0" button in the last row can never affect the
+   width (and therefore the height) of buttons in other rows. */
+.ios-calc__keys {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ios-calc__row {
+  display: flex;
+  gap: 9px;
+}
+
+.ios-calc__btn {
+  flex: 1 1 0;
+  /* 74px on a 360px-wide block ≈ the iPhone 4's 72pt keys on 320pt. */
+  height: 74px;
+  min-width: 0;
+  border-radius: 50%;
+  border: none;
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 400;
+  color: #fff;
+  background: #333336;
+  cursor: pointer;
+  appearance: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 0.1s ease;
+}
+
+.ios-calc__btn:active {
+  filter: brightness(1.45);
+}
+
+.ios-calc__btn--fn {
+  background: #a5a5aa;
+  color: #000;
+}
+
+.ios-calc__btn--op {
+  background: #ff9f0a;
+  color: #fff;
+  font-size: 34px;
+  font-weight: 400;
+}
+
+.ios-calc__btn--wide {
+  flex: 2 1 0;
+  height: 74px;
+  border-radius: 999px;
+  text-align: left;
+  padding-left: 26px;
+}
+
+@media (max-height: 680px) {
+  .ios-calc {
+    padding: 0 12px 10px;
+  }
+
+  .ios-calc__display {
+    font-size: 34px;
+    padding-bottom: 10px;
+  }
+
+  .ios-calc__keys,
+  .ios-calc__row {
+    gap: 7px;
+  }
+
+  .ios-calc__btn,
+  .ios-calc__btn--wide {
+    height: 60px;
+  }
+
+  .ios-calc__btn {
+    font-size: 24px;
+  }
+
+  .ios-calc__btn--op {
+    font-size: 27px;
+  }
+}
+
+@media (min-width: 640px) {
+  .ios-calc {
+    max-width: 400px;
+  }
+}

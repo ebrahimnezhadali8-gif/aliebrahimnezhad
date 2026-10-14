@@ -1,0 +1,137 @@
+.mhome {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  /* The iPhone-era sky wallpaper. `center/cover` keeps it filling any
+     phone or tablet aspect ratio without letterboxing. */
+  background: #0b2f6d url("/images/ios-wallpaper.svg") center / cover no-repeat;
+  /* Room for the home indicator so it never sits on top of the dock. */
+  padding-bottom: 16px;
+}
+
+/* Horizontal scroll-snap pager — swipe between pages like an iPhone home screen. */
+.mhome__pages {
+  flex: 1 1 auto;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  min-height: 0;
+}
+
+.mhome__pages::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each page is exactly one scroller-width wide. Keeping the page full-bleed and
+   centring the content *inside* it is what makes scroll-snap paging work — if
+   the page itself were width-capped, `margin: auto` would have no free space to
+   absorb once a second page overflows the scroller, and the icons would pile up
+   against the left edge. */
+.mhome__page {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 14px 10px 6px;
+  box-sizing: border-box;
+}
+
+.mhome__grid {
+  width: 100%;
+  /* Caps how large the icon grid grows so it never looks stretched on a tablet. */
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Every row is centred as a whole, so a short final row stays balanced instead
+   of hugging the left edge. */
+.mhome__row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.mhome__row--partial {
+  /* A partial row has no reason to stretch; keep it compact and centred. */
+  max-width: max-content;
+}
+
+/* Narrow phones: keep four icons + gaps inside the page. */
+@media (max-width: 360px) {
+  .mhome__page {
+    padding: 12px 6px 4px;
+  }
+
+  .mhome__grid {
+    max-width: 300px;
+    gap: 16px;
+  }
+
+  .mhome__row {
+    gap: 6px;
+  }
+}
+
+@media (min-width: 640px) {
+  .mhome__page {
+    padding: 24px 20px 10px;
+  }
+
+  .mhome__grid {
+    max-width: 430px;
+    gap: 26px;
+  }
+
+  .mhome__row {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mhome__grid {
+    max-width: 470px;
+    gap: 30px;
+  }
+
+  .mhome__row {
+    gap: 24px;
+  }
+}
+
+.mhome__dots {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
+
+.mhome__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.mhome__dot--active {
+  background: #fff;
+  transform: scale(1.15);
+}

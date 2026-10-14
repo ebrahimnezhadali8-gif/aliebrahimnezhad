@@ -1,0 +1,64 @@
+.desktop-icons {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  /* Fills the available desktop height (minus taskbar) and wraps icons into
+     new columns automatically once a column runs out of vertical room —
+     this is what fixes icons overflowing off the bottom of the screen. */
+  height: calc(100vh - var(--taskbar-h) - 36px);
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(auto-fill, 92px);
+  column-gap: 4px;
+  row-gap: 2px;
+  z-index: 5;
+}
+
+.desktop-icon {
+  width: 84px;
+  padding: 8px 4px 6px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  appearance: none;
+  user-select: none;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.desktop-icon--selected {
+  background: rgba(120, 175, 240, 0.35);
+  border-color: rgba(160, 205, 255, 0.7);
+}
+
+.desktop-icon__glyph {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+.desktop-icon__glyph .icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.desktop-icon__label {
+  color: #fff;
+  font-size: 11.5px;
+  text-align: center;
+  line-height: 1.25;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75), 0 0 2px rgba(0, 0, 0, 0.6);
+  word-break: break-word;
+}

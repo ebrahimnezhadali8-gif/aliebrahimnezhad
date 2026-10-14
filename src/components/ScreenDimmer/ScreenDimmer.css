@@ -1,0 +1,15 @@
+.screen-dimmer {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+  /* Above windows (z <= 90) and icons (z 5), below taskbar (100) / start menu (110). */
+  z-index: 95;
+  transition: opacity 0.18s linear;
+}
+
+/* The mobile skin has no taskbar, so the dimmer only has to stay under the
+   Control Center (z 51) and the home indicator (z 60). */
+.mobile-root .screen-dimmer {
+  z-index: 55;
+}

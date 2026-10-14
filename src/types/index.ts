@@ -1,0 +1,120 @@
+export type WindowId =
+  | "resume"
+  | "projects"
+  | "about"
+  | "skills"
+  | "contact"
+  | "calculator"
+  | "cmd";
+
+export type IconName =
+  | "folder"
+  | "folderSmall"
+  | "pdf"
+  | "github"
+  | "linkedin"
+  | "instagram"
+  | "telegram"
+  | "google"
+  | "microsoft"
+  | "phone"
+  | "user"
+  | "skills"
+  | "react"
+  | "nextjs"
+  | "nestjs"
+  | "express"
+  | "ts"
+  | "node"
+  | "mysql"
+  | "postgres"
+  | "contactPerson"
+  | "windowsLogo"
+  | "windowsLogoLight"
+  | "email"
+  | "location"
+  | "calculator"
+  | "cmd"
+  | "power"        // جدید
+  | "wordpress"    // جدید
+  | "speaker"      // جدید
+  | "sun"          // روشنایی صفحه
+  | "mail"
+  | "notes"
+  | "chrome"
+  | "messages"
+  // --- iOS-style glyphs for the phone/tablet skin (all use currentColor) ---
+  | "apple"
+  | "iosDocument"
+  | "iosNotes"
+  | "iosFolder"
+  | "iosSkills"
+  | "iosCalculator"
+  | "iosPhone"
+  | "iosMail"
+  | "iosUser"
+  | "iosMessages"
+  | "iosTelegram"
+  | "iosLinkedin"
+  | "wifi"
+  | "airplane"
+  | "bluetooth"
+  | "moon"
+  | "rotationLock";
+
+export type ItemType = "window" | "link";
+
+export interface DesktopItem {
+  id: string;
+  label: string;
+  icon: IconName;
+  type: ItemType;
+  /** Window id (for type "window") or a key into siteConfig.links (for type "link"). */
+  target: string;
+}
+
+export interface WindowMeta {
+  title: string;
+  icon: IconName;
+  width: number;
+  height: number;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  /** One short line shown under the title in listings. */
+  tagline: string;
+  /** A couple of paragraphs describing what the product does and why. */
+  desc: string;
+  /** Concrete feature bullets. */
+  highlights: string[];
+  tags: string[];
+  link: string;
+  /** Text of the outbound link button ("Visit workchi.ir"). */
+  linkLabel: string;
+  year: string;
+  /** Path to the project's own logo/brand image, when one is available. */
+  logo?: string;
+}
+
+export interface Skill {
+  name: string;
+  pct: number;
+  icon: IconName;
+}
+
+export interface SiteLinks {
+  linkedin: string;
+  github: string;
+  instagram: string;
+  telegram: string;
+  google: string;
+  microsoft: string;
+}
+
+/** Per-window runtime state tracked by the window manager. */
+export interface WindowState {
+  zIndex: number;
+  minimized: boolean;
+}

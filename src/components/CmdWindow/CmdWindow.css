@@ -1,0 +1,99 @@
+.cmd-window {
+  height: 100%;
+  background: #0c0c0c;
+  cursor: text;
+}
+
+.cmd-window__body {
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #f2f2f2;
+}
+
+.cmd-window__banner {
+  margin-bottom: 4px;
+}
+
+.cmd-window__banner-border {
+  color: #3fae4a;
+  white-space: pre;
+  letter-spacing: 0;
+}
+
+.cmd-window__banner-name {
+  color: #7fe08a;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 1px;
+  padding: 2px 0;
+  text-shadow: 0 0 6px rgba(127, 224, 138, 0.45);
+}
+
+.cmd-window__banner-role {
+  color: #4fbe58;
+  font-size: 12.5px;
+  letter-spacing: 0.5px;
+  padding-bottom: 2px;
+}
+
+.cmd-window__hint {
+  color: #9a9a9a;
+  margin-bottom: 8px;
+}
+
+.cmd-window__line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cmd-window__line--prompt {
+  color: #f2f2f2;
+}
+
+.cmd-window__line--output {
+  color: #d8d8d8;
+}
+
+.cmd-window__inputline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmd-window__prompt {
+  color: #f2f2f2;
+  white-space: nowrap;
+}
+
+.cmd-window__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f2f2f2;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  caret-color: #f2f2f2;
+}
+
+.cmd-window__cursor {
+  width: 7px;
+  height: 14px;
+  background: #f2f2f2;
+  animation: cmd-blink 1s step-end infinite;
+}
+
+@keyframes cmd-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

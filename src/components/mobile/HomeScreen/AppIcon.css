@@ -1,0 +1,166 @@
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* A fixed width keeps every column aligned and lets the row centre itself. */
+  flex: 0 0 auto;
+  width: 76px;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS 4 tiles are glossy: a squircle with a hard-edged highlight across the top
+   half and a soft inner shadow at the bottom. A plain border-radius reads as a
+   flat rounded rectangle and looks unmistakably "not an iPhone". */
+.app-icon__tile {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff, #e6e9ee);
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -6px 10px rgba(0, 0, 0, 0.09),
+    0 1px 2px rgba(0, 0, 0, 0.24),
+    0 5px 12px rgba(0, 0, 0, 0.24);
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.app-icon--brand .app-icon__tile {
+  background: linear-gradient(180deg, #ffffff, #eef1f5);
+}
+
+/* The gloss: bright at the top, with the curved lower edge iOS used. */
+.app-icon__tile::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 52%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.14));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px 12px 50% 50% / 12px 12px 14px 14px;
+  pointer-events: none;
+}
+
+.app-icon__glyph {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The <Icon> wrapper span is a full-width block, which left-aligned the SVG
+   inside it. Make it a flex box so the glyph sits dead centre in the tile. */
+.app-icon__glyph .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* System glyphs are white line-art, so they need a comfortable inset.
+   54% keeps them from touching the tile edge at any size. */
+.app-icon--system .app-icon__glyph .icon svg {
+  width: 54%;
+  height: 54%;
+  display: block;
+}
+
+/* Brand logos are self-contained marks (GitHub's octocat, Instagram's
+   gradient) that already carry their own padding, so they sit larger. */
+.app-icon--brand .app-icon__glyph .icon svg {
+  width: 62%;
+  height: 62%;
+  display: block;
+}
+
+/* A couple of brand marks are edge-to-edge squares, so pull them in a touch. */
+.app-icon--brand .app-icon__glyph .icon-instagram svg {
+  width: 74%;
+  height: 74%;
+}
+
+.app-icon:active .app-icon__tile {
+  transform: scale(0.92);
+  filter: brightness(0.9);
+}
+
+.app-icon__label {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  /* iOS truncates long labels rather than wrapping them. */
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+/* Narrow phones (iPhone SE and older): shrink the column so a full row of four
+   still fits without overflowing the page. */
+@media (max-width: 360px) {
+  .app-icon {
+    width: 66px;
+    gap: 4px;
+  }
+
+  .app-icon__tile {
+    width: 50px;
+    height: 50px;
+    border-radius: 11px;
+  }
+
+  .app-icon__tile::after {
+    border-radius: 10px 10px 50% 50% / 10px 10px 12px 12px;
+  }
+
+  .app-icon__label {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 640px) {
+  .app-icon {
+    width: 92px;
+    gap: 7px;
+  }
+
+  .app-icon__tile {
+    width: 68px;
+    height: 68px;
+    border-radius: 15px;
+  }
+
+  .app-icon__tile::after {
+    border-radius: 14px 14px 50% 50% / 14px 14px 17px 17px;
+  }
+
+  .app-icon--system .app-icon__glyph .icon svg {
+    width: 52%;
+    height: 52%;
+  }
+
+  .app-icon__label {
+    font-size: 12px;
+  }
+}

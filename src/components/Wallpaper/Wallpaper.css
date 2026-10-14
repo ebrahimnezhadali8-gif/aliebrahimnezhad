@@ -1,0 +1,16 @@
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.8s ease;
+}
+
+.wallpaper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 40%);
+  mix-blend-mode: screen;
+}
