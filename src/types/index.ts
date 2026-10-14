@@ -5,7 +5,9 @@ export type WindowId =
   | "skills"
   | "contact"
   | "calculator"
-  | "cmd";
+  | "cmd"
+  | "ie"
+  | "settings";
 
 export type IconName =
   | "folder"
@@ -60,7 +62,26 @@ export type IconName =
   | "airplane"
   | "bluetooth"
   | "moon"
-  | "rotationLock";
+  | "rotationLock"
+  | "ie"
+  | "safari"
+  | "settings"
+  | "gear"
+  | "iosSettings"
+  | "ios4Phone"
+  | "ios4Mail"
+  | "ios4Messages"
+  | "ios4Notes"
+  | "ios4Calculator"
+  | "ios4Settings"
+  | "ios4Safari"
+  | "ios4Projects"
+  | "ios4About"
+  | "ios4Skills"
+  | "ios4Resume"
+  | "ios4Linkedin"
+  | "ios4Telegram"
+  | "globe";
 
 export type ItemType = "window" | "link";
 

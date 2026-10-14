@@ -1,12 +1,18 @@
 import type { Project } from "../../types";
 import { projectDomain } from "../../config/siteConfig";
 
+export interface ProjectModalHeadings {
+  highlights: string;
+  builtWith: string;
+}
+
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
+  headings: ProjectModalHeadings;
 }
 
-function ProjectModal({ project, onClose }: ProjectModalProps) {
+function ProjectModal({ project, onClose, headings }: ProjectModalProps) {
   if (!project) return null;
 
   return (
@@ -45,14 +51,14 @@ function ProjectModal({ project, onClose }: ProjectModalProps) {
             <p key={paragraph.slice(0, 32)}>{paragraph}</p>
           ))}
 
-          <h4 className="project-modal__section">Highlights</h4>
+          <h4 className="project-modal__section">{headings.highlights}</h4>
           <ul className="project-modal__highlights">
             {project.highlights.map((highlight) => (
               <li key={highlight.slice(0, 32)}>{highlight}</li>
             ))}
           </ul>
 
-          <h4 className="project-modal__section">Built with</h4>
+          <h4 className="project-modal__section">{headings.builtWith}</h4>
           <div className="project-modal__tags">
             {project.tags.map((tag) => (
               <span key={tag}>{tag}</span>

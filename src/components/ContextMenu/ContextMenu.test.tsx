@@ -4,6 +4,12 @@ import ContextMenu from "./ContextMenu";
 
 type Handler = () => void;
 
+const labels = {
+  showIcons: "Show desktop icons",
+  nextBackground: "Next background",
+  refresh: "Refresh",
+};
+
 interface Overrides {
   state?: { x: number; y: number } | null;
   iconsVisible?: boolean;
@@ -22,6 +28,7 @@ function renderMenu(overrides: Overrides = {}) {
       onToggleIcons={overrides.onToggleIcons ?? vi.fn()}
       onNextBackground={overrides.onNextBackground ?? vi.fn()}
       onRefresh={overrides.onRefresh ?? vi.fn()}
+      labels={labels}
     />
   );
 }
@@ -32,7 +39,24 @@ describe("ContextMenu", () => {
     expect(screen.queryByTestId("desktop-context-menu")).not.toBeInTheDocument();
   });
 
-  it("calls onToggleIcons and closes when 'Show desktop icons' is clicked", () => {
+  it("uses the labels it is given rather than hard-coded English", () => {
+    render(
+      <ContextMenu
+        state={{ x: 10, y: 10 }}
+        onClose={vi.fn()}
+        iconsVisible
+        onToggleIcons={vi.fn()}
+        onNextBackground={vi.fn()}
+        onRefresh={vi.fn()}
+        labels={{ showIcons: "نمایش آیکون‌ها", nextBackground: "پس‌زمینه‌ی بعدی", refresh: "تازه‌سازی" }}
+      />
+    );
+    expect(screen.getByText("نمایش آیکون‌ها")).toBeInTheDocument();
+    expect(screen.getByText("پس‌زمینه‌ی بعدی")).toBeInTheDocument();
+    expect(screen.getByText("تازه‌سازی")).toBeInTheDocument();
+  });
+
+  it("calls onToggleIcons and closes when the show-icons item is clicked", () => {
     const onToggleIcons = vi.fn();
     const onClose = vi.fn();
     renderMenu({ onToggleIcons, onClose });
@@ -53,6 +77,7 @@ describe("ContextMenu", () => {
         onToggleIcons={vi.fn()}
         onNextBackground={vi.fn()}
         onRefresh={vi.fn()}
+        labels={labels}
       />
     );
     expect(screen.getByRole("menuitemcheckbox")).toHaveAttribute("aria-checked", "false");
@@ -63,6 +88,13 @@ describe("ContextMenu", () => {
     renderMenu({ onNextBackground });
     fireEvent.click(screen.getByText("Next background"));
     expect(onNextBackground).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onRefresh when 'Refresh' is clicked", () => {
+    const onRefresh = vi.fn();
+    renderMenu({ onRefresh });
+    fireEvent.click(screen.getByText("Refresh"));
+    expect(onRefresh).toHaveBeenCalledTimes(1);
   });
 
   it("keeps itself inside the viewport when opened near the bottom-right corner", () => {

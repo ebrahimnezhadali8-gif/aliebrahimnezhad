@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import type { IconName } from "../types";
+import { ios4Icons } from "./ios4Icons";
 
 /**
  * Brand marks below are the *official* logos, downloaded verbatim from the
@@ -468,11 +469,23 @@ sun: (
       <path d="M6.9 8.9H4V20h2.9V8.9ZM5.4 4.2a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM20 13.6c0-2.7-1.4-4-3.3-4-1.5 0-2.2.8-2.6 1.4V8.9H11V20h2.9v-5.6c0-1.5.3-2.9 2.1-2.9 1.8 0 1.8 1.7 1.8 3V20H20v-6.4Z" />
     </svg>
   ),
+  iosSettings: (
+    <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd">
+      <path d="M10.46 4.56 L10.51 1.51 L13.49 1.51 L13.54 4.56 L16.17 5.65 L18.36 3.52 L20.48 5.64 L18.35 7.83 L19.44 10.46 L22.49 10.51 L22.49 13.49 L19.44 13.54 L18.35 16.17 L20.48 18.36 L18.36 20.48 L16.17 18.35 L13.54 19.44 L13.49 22.49 L10.51 22.49 L10.46 19.44 L7.83 18.35 L5.64 20.48 L3.52 18.36 L5.65 16.17 L4.56 13.54 L1.51 13.49 L1.51 10.51 L4.56 10.46 L5.65 7.83 L3.52 5.64 L5.64 3.52 L7.83 5.65Z M15.4 12 A3.4 3.4 0 1 0 8.6 12 A3.4 3.4 0 1 0 15.4 12Z" />
+    </svg>
+  ),
   wifi: (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 18.4a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8Z" />
-      <path d="M12 10.6c2.3 0 4.5.9 6.1 2.4a1.4 1.4 0 0 0 2-2A12 12 0 0 0 12 7.2c-3 0-5.8 1.1-8 3.1a1.4 1.4 0 0 0 2 2 8.6 8.6 0 0 1 6-1.7Z" />
-      <path d="M12 4.2c3.9 0 7.6 1.5 10.4 4a1.4 1.4 0 1 0 2-2A17 17 0 0 0 12 1.4a17 17 0 0 0-12.4 4.8 1.4 1.4 0 0 0 2 2A15.4 15.4 0 0 1 12 4.2Z" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+    >
+      <path d="M2.5 9.2a14 14 0 0 1 19 0" />
+      <path d="M5.8 12.9a9.2 9.2 0 0 1 12.4 0" />
+      <path d="M9.1 16.4a4.6 4.6 0 0 1 5.8 0" />
+      <circle cx="12" cy="19.6" r="1.4" fill="currentColor" stroke="none" />
     </svg>
   ),
   airplane: (
@@ -496,4 +509,84 @@ sun: (
       <path d="M20.8 3.6v4.2h-4.2" />
     </svg>
   ),
+  ie: (
+    <svg viewBox="0 0 48 48">
+      <defs>
+        <linearGradient id="ie-e" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#7fd0ff" />
+          <stop offset="0.55" stopColor="#1e8fe6" />
+          <stop offset="1" stopColor="#0b57b5" />
+        </linearGradient>
+        <linearGradient id="ie-ring" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#ffe77a" />
+          <stop offset="1" stopColor="#f0a800" />
+        </linearGradient>
+      </defs>
+      <g transform="rotate(-28 24 24)">
+        <ellipse cx="24" cy="24" rx="21.5" ry="8" fill="none" stroke="url(#ie-ring)" strokeWidth="3.2" />
+      </g>
+      <path
+        d="M11.5 25.5H35.5A12.2 12.2 0 1 0 32 34.8"
+        fill="none"
+        stroke="url(#ie-e)"
+        strokeWidth="7"
+        strokeLinecap="butt"
+      />
+      <g transform="rotate(-28 24 24)">
+        <path d="M2.7 24A21.5 8 0 0 0 45.3 24" fill="none" stroke="url(#ie-ring)" strokeWidth="3.2" />
+      </g>
+    </svg>
+  ),
+  safari: (
+    <svg viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="23" fill="#f4f7fb" />
+      <circle cx="24" cy="24" r="23" fill="none" stroke="#c8d3e0" strokeWidth="1" />
+      <circle cx="24" cy="24" r="20.5" fill="none" stroke="#dde5ee" strokeWidth="1" />
+      {/* Compass rose */}
+      <path d="M24 6.5 27.2 21 24 24 20.8 21Z" fill="#e8534f" />
+      <path d="M24 41.5 20.8 27 24 24 27.2 27Z" fill="#c9d2dc" />
+      <path d="M6.5 24 21 20.8 24 24 21 27.2Z" fill="#c9d2dc" />
+      <path d="M41.5 24 27 27.2 24 24 27 20.8Z" fill="#c9d2dc" />
+      <circle cx="24" cy="24" r="2.2" fill="#8a97a8" />
+    </svg>
+  ),
+  settings: (
+    <svg viewBox="0 0 48 48">
+      <defs>
+        <linearGradient id="gear-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#dfe7f2" />
+          <stop offset="0.5" stopColor="#9fb0c8" />
+          <stop offset="1" stopColor="#5f7390" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M20.92 9.12 L21.04 3.21 L26.96 3.21 L27.08 9.12 L32.35 11.30 L36.61 7.21 L40.79 11.39 L36.70 15.65 L38.88 20.92 L44.79 21.04 L44.79 26.96 L38.88 27.08 L36.70 32.35 L40.79 36.61 L36.61 40.79 L32.35 36.70 L27.08 38.88 L26.96 44.79 L21.04 44.79 L20.92 38.88 L15.65 36.70 L11.39 40.79 L7.21 36.61 L11.30 32.35 L9.12 27.08 L3.21 26.96 L3.21 21.04 L9.12 20.92 L11.30 15.65 L7.21 11.39 L11.39 7.21 L15.65 11.30Z M30.8 24 A6.8 6.8 0 1 0 17.2 24 A6.8 6.8 0 1 0 30.8 24Z"
+        fill="url(#gear-fill)"
+        fillRule="evenodd"
+        stroke="#465a76"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <circle cx="24" cy="24" r="10.5" fill="none" stroke="#ffffff" strokeOpacity="0.55" strokeWidth="1.4" />
+    </svg>
+  ),
+  gear: (
+    <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd">
+      <path d="M10.46 4.56 L10.51 1.51 L13.49 1.51 L13.54 4.56 L16.17 5.65 L18.36 3.52 L20.48 5.64 L18.35 7.83 L19.44 10.46 L22.49 10.51 L22.49 13.49 L19.44 13.54 L18.35 16.17 L20.48 18.36 L18.36 20.48 L16.17 18.35 L13.54 19.44 L13.49 22.49 L10.51 22.49 L10.46 19.44 L7.83 18.35 L5.64 20.48 L3.52 18.36 L5.65 16.17 L4.56 13.54 L1.51 13.49 L1.51 10.51 L4.56 10.46 L5.65 7.83 L3.52 5.64 L5.64 3.52 L7.83 5.65Z M15.4 12 A3.4 3.4 0 1 0 8.6 12 A3.4 3.4 0 1 0 15.4 12Z" />
+    </svg>
+  ),
+  globe: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21c-2.4-2.6-3.6-5.6-3.6-9S9.6 5.6 12 3Z" />
+    </svg>
+  ),
+  ...ios4Icons,
 };

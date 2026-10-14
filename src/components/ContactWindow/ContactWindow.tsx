@@ -1,29 +1,34 @@
 import Window from "../Window/Window";
-import { siteConfig, windowMeta } from "../../config/siteConfig";
+import Icon from "../../icons/Icon";
+import { windowMeta } from "../../config/siteConfig";
+import { useContent } from "../../hooks/useContent";
 import "./ContactWindow.css";
 
 function ContactWindow() {
   const meta = windowMeta.contact;
-  const telHref = `tel:${siteConfig.phone.replace(/\s+/g, "")}`;
+  const { content, t } = useContent();
 
   return (
-    <Window
-      id="contact"
-      title={meta.title}
-      icon={meta.icon}
-      width={meta.width}
-      height={meta.height}
-    >
+    <Window id="contact" title={t("contact")} icon={meta.icon} width={meta.width} height={meta.height}>
       <div className="contact-window">
-        <div className="contact-window__photo">
-          <img src="/images/aliebrahimnezhad.webp" alt={siteConfig.name} />
+        <div className="contact-window__avatar">
+          <img src="/images/aliebrahimnezhad.webp" alt={content.name} />
         </div>
-        <div className="contact-window__name">{siteConfig.name}</div>
-        <div className="contact-window__role">{siteConfig.role}</div>
-        <div className="contact-window__phone">{siteConfig.phone}</div>
-        <a className="contact-window__call" href={telHref}>
-          Call
+        <div className="contact-window__name">{content.name}</div>
+        <div className="contact-window__role">{content.role}</div>
+
+        <a className="contact-window__row" href={`mailto:${content.email}`}>
+          <Icon name="email" />
+          <span>{content.email}</span>
         </a>
+        <a className="contact-window__row" href={`tel:${content.phone.replace(/\s+/g, "")}`}>
+          <Icon name="phone" />
+          <span>{content.phone}</span>
+        </a>
+        <div className="contact-window__row">
+          <Icon name="location" />
+          <span>{content.location}</span>
+        </div>
       </div>
     </Window>
   );

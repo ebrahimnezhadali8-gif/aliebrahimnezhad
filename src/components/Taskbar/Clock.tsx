@@ -1,14 +1,18 @@
 import { useClock } from "../../hooks/useClock";
+import { useDesktopSettings } from "../../context/DesktopSettingsContext";
+import { formatDate, formatTime } from "../../utils/jalali";
 
+/** Tray clock. The calendar system (Gregorian / Jalali) is chosen in Settings. */
 function Clock() {
   const now = useClock();
-  const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  const date = now.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" });
+  const { calendar } = useDesktopSettings();
 
   return (
     <div className="taskbar-clock" data-testid="taskbar-clock">
-      <span className="taskbar-clock__time">{time}</span>
-      <span className="taskbar-clock__date">{date}</span>
+      <span className="taskbar-clock__time">{formatTime(now, calendar)}</span>
+      <span className="taskbar-clock__date" data-testid="taskbar-date">
+        {formatDate(now, calendar)}
+      </span>
     </div>
   );
 }

@@ -1,15 +1,17 @@
 import Window from "../Window/Window";
 import SkillBar from "./SkillBar";
-import { siteConfig, windowMeta } from "../../config/siteConfig";
+import { windowMeta } from "../../config/siteConfig";
+import { useContent } from "../../hooks/useContent";
 import "./SkillsWindow.css";
 
 function SkillsWindow() {
   const meta = windowMeta.skills;
+  const { content, t } = useContent();
 
   return (
-    <Window id="skills" title={meta.title} icon={meta.icon} width={meta.width} height={meta.height}>
+    <Window id="skills" title={t("skills")} icon={meta.icon} width={meta.width} height={meta.height}>
       <div className="skills-window">
-        {siteConfig.skills.map((skill) => (
+        {content.skills.map((skill) => (
           <SkillBar key={skill.name} name={skill.name} pct={skill.pct} icon={skill.icon} />
         ))}
       </div>

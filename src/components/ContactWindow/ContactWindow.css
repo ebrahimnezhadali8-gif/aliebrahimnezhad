@@ -1,11 +1,11 @@
 .contact-window {
-  padding: 20px;
+  padding: 18px 16px 20px;
   text-align: center;
 }
 
-.contact-window__photo {
-  width: 76px;
-  height: 76px;
+.contact-window__avatar {
+  width: 82px;
+  height: 82px;
   border-radius: 50%;
   margin: 0 auto 10px;
   overflow: hidden;
@@ -13,7 +13,7 @@
   box-shadow: 0 4px 12px rgba(30, 70, 140, 0.3);
 }
 
-.contact-window__photo img {
+.contact-window__avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -33,29 +33,43 @@
   margin-bottom: 14px;
 }
 
-.contact-window__phone {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--accent);
+.contact-window__row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border-radius: 6px;
   background: #fff;
   border: 1px solid #d7e6f7;
-  border-radius: 6px;
-  padding: 9px;
-  margin-bottom: 10px;
-}
-
-.contact-window__call {
-  display: block;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  padding: 9px;
-  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(30, 70, 140, 0.08);
   font-size: 12.5px;
-  font-weight: 700;
+  color: #2c3a52;
+  text-decoration: none;
+  text-align: start;
 }
 
-.contact-window__call:hover {
-  background: #164a9c;
-  color: #fff;
+a.contact-window__row {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+a.contact-window__row:hover {
+  background: #f2f8ff;
+}
+
+.contact-window__row .icon {
+  flex: 0 0 auto;
+}
+
+.contact-window__row .icon svg {
+  width: 15px;
+  height: 15px;
+  color: var(--accent);
+}
+
+.contact-window__row span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
