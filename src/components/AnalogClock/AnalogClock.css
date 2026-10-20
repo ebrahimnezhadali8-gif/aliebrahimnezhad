@@ -1,0 +1,13 @@
+.analog-clock {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.analog-clock--glass {
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+}
+
+.analog-clock--light {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
