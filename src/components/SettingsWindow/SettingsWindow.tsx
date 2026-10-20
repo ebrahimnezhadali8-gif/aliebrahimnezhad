@@ -19,6 +19,8 @@ function SettingsWindow() {
     setCalendar,
     lang,
     setLang,
+    phonePreview,
+    setPhonePreview,
     brightnessPercent,
     setBrightness,
     volumePercent,
@@ -109,6 +111,22 @@ function SettingsWindow() {
 
         <section className="settings-window__group">
           <h3 className="settings-window__legend">{t("system")}</h3>
+          <div className="settings-window__row">
+            <span className="settings-window__label" title={t("phonePreviewHint")}>
+              {t("phonePreview")}
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={phonePreview}
+              aria-label={t("phonePreview")}
+              className={`settings-window__switch ${phonePreview ? "settings-window__switch--on" : ""}`}
+              onClick={() => setPhonePreview(!phonePreview)}
+              data-testid="settings-phone-preview"
+            >
+              <span className="settings-window__knob" />
+            </button>
+          </div>
           <div className="settings-window__row settings-window__row--lang">
             <span className="settings-window__label">{t("calendar")}</span>
             <div className="settings-window__langs" role="group" aria-label={t("calendar")}>

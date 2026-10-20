@@ -31,6 +31,7 @@ import {
 } from "../hooks/useWallpaperCycle";
 import { clampVolume, getVolumeLevel, setVolumeLevel } from "../utils/sound";
 
+const PHONE_PREVIEW_STORAGE_KEY = "portfolio:phone-preview";
 const WALLPAPER_CYCLE_MS = 2 * 60 * 1000;
 
 export interface DesktopSettingsValue {
@@ -65,6 +66,10 @@ export interface DesktopSettingsValue {
   calendar: CalendarSystem;
   toggleCalendar: () => void;
   setCalendar: (calendar: CalendarSystem) => void;
+
+  /** Desktop only: show the phone skin inside an iPhone 4 frame (opt-in). */
+  phonePreview: boolean;
+  setPhonePreview: (on: boolean) => void;
 
   lang: Language;
   dir: "ltr" | "rtl";
@@ -141,6 +146,10 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
     const stored = readStoredString(CALENDAR_STORAGE_KEY);
     return isCalendarSystem(stored) ? stored : "gregorian";
   });
+
+  const [phonePreview, setPhonePreviewState] = useState<boolean>(
+    () => readStoredString(PHONE_PREVIEW_STORAGE_KEY) === "1"
+  );
 
   const [lang, setLangState] = useState<Language>(() => {
     const stored = readStoredString(LANGUAGE_STORAGE_KEY);
@@ -260,6 +269,11 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setPhonePreview = useCallback((on: boolean) => {
+    setPhonePreviewState(on);
+    writeStored(PHONE_PREVIEW_STORAGE_KEY, on ? "1" : "0");
+  }, []);
+
   const toggleLang = useCallback(() => setLang(lang === "en" ? "fa" : "en"), [lang, setLang]);
 
   const value = useMemo<DesktopSettingsValue>(
@@ -285,6 +299,8 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
       calendar,
       toggleCalendar,
       setCalendar,
+      phonePreview,
+      setPhonePreview,
       lang,
       dir: directionFor(lang),
       setLang,
@@ -307,6 +323,8 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
       calendar,
       toggleCalendar,
       setCalendar,
+      phonePreview,
+      setPhonePreview,
       lang,
       setLang,
       toggleLang,
@@ -347,6 +365,8 @@ export function useDesktopSettings(): DesktopSettingsValue {
       calendar: "gregorian",
       toggleCalendar: () => {},
       setCalendar: () => {},
+      phonePreview: false,
+      setPhonePreview: () => {},
       lang: "en",
       dir: "ltr",
       setLang: () => {},
