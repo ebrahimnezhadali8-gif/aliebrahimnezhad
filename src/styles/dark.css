@@ -22,11 +22,6 @@
   --text-mid: #a3b2c9;
 }
 
-/* Dim the wallpaper itself so bright artwork doesn't glare behind dark chrome. */
-[data-theme="dark"] .wallpaper {
-  filter: brightness(0.62) saturate(0.92);
-}
-
 /* -------------------------------------------------------- desktop chrome */
 [data-theme="dark"] .taskbar {
   background: linear-gradient(180deg, rgba(26, 31, 44, 0.94), rgba(10, 13, 20, 0.97));
