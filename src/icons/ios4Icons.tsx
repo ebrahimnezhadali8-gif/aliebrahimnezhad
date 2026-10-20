@@ -1,40 +1,10 @@
-import type { ReactNode } from "react";
+import { Glyph, SHADOW, Tile } from "./ios4Parts";
 
 /**
  * Full-bleed iPhone 4 (iOS 4) app-icon artwork. Each icon paints its own 60×60
  * background; the glossy highlight and rounded corners are added by
  * `AppIcon.css` (`.app-icon--art`), exactly like iOS did at runtime.
  */
-
-type Stops = [string, string, string];
-
-function Tile({ id, stops, children }: { id: string; stops: Stops; children: ReactNode }) {
-  return (
-    <svg viewBox="0 0 60 60" aria-hidden="true">
-      <defs>
-        <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor={stops[0]} />
-          <stop offset="0.55" stopColor={stops[1]} />
-          <stop offset="1" stopColor={stops[2]} />
-        </linearGradient>
-      </defs>
-      <rect width="60" height="60" fill={`url(#${id}-bg)`} />
-      {children}
-    </svg>
-  );
-}
-
-const SHADOW = "drop-shadow(0 1.2px 0.8px rgba(0,0,0,0.35))";
-
-/** A white 24-unit glyph centred on the tile. */
-function Glyph({ children, scale = 1.6 }: { children: ReactNode; scale?: number }) {
-  const offset = 30 - 12 * scale;
-  return (
-    <g fill="#fff" style={{ filter: SHADOW }} transform={`translate(${offset} ${offset}) scale(${scale})`}>
-      {children}
-    </g>
-  );
-}
 
 export const ios4Icons = {
   ios4Phone: (
@@ -166,6 +136,26 @@ export const ios4Icons = {
       <Glyph scale={1.75}>
         <path d="M21.2 4.4 2.9 11.5c-1 .4-1 1 0 1.3l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.6 3.4c.8.5 1.5.2 1.7-.8L22.5 5.4c.3-1.2-.4-1.7-1.3-1Zm-3.5 3.6-7.3 6.6-.3 3-1.3-4.3 8.2-5.1c.4-.2.7-.1.7.2Z" />
       </Glyph>
+    </Tile>
+  ),
+  ios4Terminal: (
+    <Tile id="i4tm" stops={["#4a4d54", "#1d1f23", "#08090b"]}>
+      <g fill="none" stroke="#46e06a" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: SHADOW }}>
+        <path d="m15 20 12 10-12 10" />
+        <path d="M32 42h14" />
+      </g>
+    </Tile>
+  ),
+  ios4Clock: (
+    <Tile id="i4ck" stops={["#4a4d54", "#1d1f23", "#08090b"]}>
+      <circle cx="30" cy="30" r="23" fill="#fafafa" />
+      <g stroke="#222" strokeWidth="2" strokeLinecap="round">
+        <path d="M30 10v4M30 46v4M10 30h4M46 30h4" />
+      </g>
+      <path d="M30 30V17" stroke="#111" strokeWidth="3" strokeLinecap="round" />
+      <path d="m30 30 8 5" stroke="#111" strokeWidth="3" strokeLinecap="round" />
+      <path d="M30 30 22 40" stroke="#e5413b" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="30" cy="30" r="2" fill="#e5413b" />
     </Tile>
   ),
 };

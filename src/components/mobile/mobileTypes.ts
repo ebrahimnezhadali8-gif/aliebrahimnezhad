@@ -10,6 +10,8 @@ export type MobileAppId =
   | "phone"
   | "mail"
   | "safari"
+  | "terminal"
+  | "clock"
   | "messages"
   | "settings";
 
@@ -56,7 +58,8 @@ export const homeScreenApps: MobileIconItem[] = [
   { id: "about", label: "About Me", icon: "ios4About", theme: art, action: { type: "app", app: "about" } },
   { id: "skills", label: "Skills", icon: "ios4Skills", theme: art, action: { type: "app", app: "skills" } },
   { id: "calculator", label: "Calculator", icon: "ios4Calculator", theme: art, action: { type: "app", app: "calculator" } },
-  { id: "safari", label: "Safari", icon: "ios4Safari", theme: art, action: { type: "app", app: "safari" } },
+  { id: "terminal", label: "Terminal", icon: "ios4Terminal", theme: art, action: { type: "app", app: "terminal" } },
+  { id: "clock", label: "Clock", icon: "ios4Clock", theme: art, action: { type: "app", app: "clock" } },
   { id: "github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
   { id: "linkedin", label: "LinkedIn", icon: "ios4Linkedin", theme: art, action: { type: "link", target: "linkedin" } },
   { id: "instagram", label: "Instagram", icon: "instagram", theme: brand, action: { type: "link", target: "instagram" } },
@@ -73,7 +76,7 @@ export const dockApps: MobileIconItem[] = [
   { id: "dock-phone", label: "Phone", icon: "ios4Phone", theme: art, action: { type: "app", app: "phone" } },
   { id: "dock-mail", label: "Mail", icon: "ios4Mail", theme: art, action: { type: "app", app: "mail" } },
   { id: "dock-messages", label: "Messages", icon: "ios4Messages", theme: art, action: { type: "app", app: "messages" } },
-  { id: "dock-github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
+  { id: "dock-safari", label: "Safari", icon: "ios4Safari", theme: art, action: { type: "app", app: "safari" } },
 ];
 
 export const APP_TITLES: Record<MobileAppId, string> = {
@@ -86,6 +89,8 @@ export const APP_TITLES: Record<MobileAppId, string> = {
   phone: "Phone",
   mail: "Mail",
   safari: "Safari",
+  terminal: "Terminal",
+  clock: "Clock",
   messages: "Messages",
   settings: "Settings",
 };
@@ -93,5 +98,8 @@ export const APP_TITLES: Record<MobileAppId, string> = {
 /** Icons per row on the home screen — the iPhone 4 is exactly four wide. */
 export const ICONS_PER_ROW = 4;
 
-/** Icons per home-screen page (two full rows). */
-export const APPS_PER_PAGE = ICONS_PER_ROW * 2;
+/** Rows per home-screen page — the iPhone 4 grid is 4×4. */
+export const ROWS_PER_PAGE = 4;
+
+/** Icons per home-screen page (four full rows). */
+export const APPS_PER_PAGE = ICONS_PER_ROW * ROWS_PER_PAGE;

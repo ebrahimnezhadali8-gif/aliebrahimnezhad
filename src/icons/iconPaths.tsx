@@ -588,5 +588,45 @@ sun: (
       <path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21c-2.4-2.6-3.6-5.6-3.6-9S9.6 5.6 12 3Z" />
     </svg>
   ),
+  contrast: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor" />
+    </svg>
+  ),
+  search: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m15.5 15.5 5 5" />
+    </svg>
+  ),
+  recycle: (
+    <svg viewBox="0 0 48 48">
+      <defs>
+        <linearGradient id="bin-body" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#cfdcec" />
+          <stop offset="0.5" stopColor="#f4f8fd" />
+          <stop offset="1" stopColor="#aabbd2" />
+        </linearGradient>
+      </defs>
+      <path d="M11 14h26l-2.4 28.5a2 2 0 0 1-2 1.8H15.4a2 2 0 0 1-2-1.8Z" fill="url(#bin-body)" stroke="#6f86a6" strokeWidth="1.4" />
+      <rect x="8.5" y="9.5" width="31" height="5" rx="2" fill="#dfe8f4" stroke="#6f86a6" strokeWidth="1.4" />
+      <path d="M20 8.5V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5" fill="none" stroke="#6f86a6" strokeWidth="1.4" />
+      <g fill="none" stroke="#2e9c3f" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m19 27 3.5-5.5 3 4.5M21 31.5h6.5l-2-3.5M32 29l-3.2 5.3-4.6-.3" />
+      </g>
+    </svg>
+  ),
+  clock: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7v5l3.2 2" />
+    </svg>
+  ),
+  terminal: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m5 7 5 5-5 5M12.5 17H19" />
+    </svg>
+  ),
   ...ios4Icons,
 };

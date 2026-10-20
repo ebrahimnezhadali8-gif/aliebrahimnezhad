@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "../../../icons/Icon";
+import { useContent } from "../../../hooks/useContent";
 import { useDesktopSettings } from "../../../context/DesktopSettingsContext";
 import { getVolumeLevel, setVolumeLevel } from "../../../utils/sound";
 import { MIN_BRIGHTNESS } from "../../../utils/brightness";
@@ -8,7 +9,7 @@ import "./MobileControlCenter.css";
 export interface ControlCenterToggle {
   id: string;
   label: string;
-  icon: "airplane" | "wifi" | "bluetooth" | "moon" | "rotationLock";
+  icon: "airplane" | "wifi" | "bluetooth" | "moon" | "rotationLock" | "contrast";
   /** `on` paints the toggle in its active iOS colour. */
   active: boolean;
   onToggle: () => void;
@@ -26,7 +27,8 @@ interface MobileControlCenterProps {
  * and persist across reloads.
  */
 function MobileControlCenter({ open, onClose }: MobileControlCenterProps) {
-  const { brightnessPercent, setBrightness } = useDesktopSettings();
+  const { brightnessPercent, setBrightness, theme, toggleTheme } = useDesktopSettings();
+  const { t } = useContent();
   const [volume, setVolume] = useState(() => getVolumeLevel());
   const [airplane, setAirplane] = useState(false);
   const [wifi, setWifi] = useState(true);
@@ -57,6 +59,7 @@ function MobileControlCenter({ open, onClose }: MobileControlCenterProps) {
     { id: "wifi", label: "Wi-Fi", icon: "wifi", active: wifi, onToggle: () => setWifi((v) => !v) },
     { id: "bluetooth", label: "Bluetooth", icon: "bluetooth", active: bluetooth, onToggle: () => setBluetooth((v) => !v) },
     { id: "focus", label: "Focus", icon: "moon", active: focus, onToggle: () => setFocus((v) => !v) },
+    { id: "dark", label: t("darkMode"), icon: "contrast", active: theme === "dark", onToggle: toggleTheme },
     { id: "rotation", label: "Rotation", icon: "rotationLock", active: rotationLock, onToggle: () => setRotationLock((v) => !v) },
   ];
 

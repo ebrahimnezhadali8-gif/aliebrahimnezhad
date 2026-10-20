@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MobileBootScreen from "./BootScreen/MobileBootScreen";
 import MobileHomeScreen from "./HomeScreen/MobileHomeScreen";
 import MobileControlCenter from "./ControlCenter/MobileControlCenter";
@@ -14,8 +14,15 @@ import MailApp from "./apps/MailApp";
 import SafariApp from "./apps/SafariApp";
 import SettingsApp from "./apps/SettingsApp";
 import MessagesApp from "./apps/MessagesApp";
+import TerminalApp from "./apps/TerminalApp";
+import ClockApp from "./apps/ClockApp";
+import SpotlightSearch from "./SpotlightSearch";
+import { appLabel } from "./appLabel";
+import { useContent } from "../../hooks/useContent";
+import { track } from "../../utils/analytics";
+import type { SearchEntry } from "../../utils/searchEntries";
 import { MobileShellContext } from "./MobileShellContext";
-import { type MobileAppId, type MobileIconItem } from "./mobileTypes";
+import { dockApps, homeScreenApps, type MobileAppId, type MobileIconItem } from "./mobileTypes";
 import { siteConfig } from "../../config/siteConfig";
 import type { SiteLinks } from "../../types";
 import "./MobileApp.css";
@@ -27,12 +34,24 @@ function MobileApp() {
   const [booted, setBooted] = useState(false);
   const [activeApp, setActiveApp] = useState<MobileAppId | null>(null);
   const [controlCenterOpen, setControlCenterOpen] = useState(false);
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
   const pullStartY = useRef<number | null>(null);
+  const { t, content } = useContent();
 
   const goHome = useCallback(() => {
+    setSpotlightOpen(false);
     setActiveApp(null);
     setControlCenterOpen(false);
   }, []);
+
+  // The desktop "Phone preview" frame has a real Home button outside the iframe.
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin === window.location.origin && event.data?.type === "phone-home") goHome();
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [goHome]);
 
   const handleActivate = (item: MobileIconItem) => {
     if (item.action.type === "link") {
@@ -40,6 +59,7 @@ function MobileApp() {
       if (url) window.open(url, "_blank", "noopener");
       return;
     }
+    track("app", item.action.app);
     setActiveApp(item.action.app);
   };
 
@@ -71,6 +91,42 @@ function MobileApp() {
     [activeApp]
   );
 
+  const spotlightEntries = useMemo<SearchEntry[]>(() => {
+    const label = appLabel(t);
+    return [
+      ...[...homeScreenApps, ...dockApps].map((item) => ({
+        id: `app:${item.id}`,
+        kind: "app" as const,
+        title: label(item),
+        icon: item.icon,
+      })),
+      ...content.projects.map((project) => ({
+        id: `project:${project.id}`,
+        kind: "project" as const,
+        title: project.title,
+        subtitle: project.tagline,
+        icon: "ios4Projects" as const,
+        keywords: [...project.tags, project.link],
+      })),
+      ...content.skills.map((skill) => ({
+        id: `skill:${skill.name}`,
+        kind: "skill" as const,
+        title: skill.name,
+        icon: skill.icon,
+      })),
+    ];
+  }, [t, content]);
+
+  const handleSpotlightSelect = (entry: SearchEntry) => {
+    setSpotlightOpen(false);
+    if (entry.kind === "app") {
+      const item = [...homeScreenApps, ...dockApps].find((candidate) => `app:${candidate.id}` === entry.id);
+      if (item) handleActivate(item);
+    } else {
+      setActiveApp(entry.kind === "project" ? "projects" : "skills");
+    }
+  };
+
   const renderApp = () => {
     switch (activeApp) {
       case "resume":
@@ -91,6 +147,10 @@ function MobileApp() {
         return <MailApp onBack={goHome} />;
       case "safari":
         return <SafariApp onBack={goHome} />;
+      case "terminal":
+        return <TerminalApp onBack={goHome} />;
+      case "clock":
+        return <ClockApp onBack={goHome} />;
       case "messages":
         return <MessagesApp onBack={goHome} />;
       case "settings":
@@ -117,8 +177,16 @@ function MobileApp() {
           <MobileHomeScreen
             onActivate={handleActivate}
             onOpenControlCenter={() => setControlCenterOpen(true)}
+            onOpenSpotlight={() => setSpotlightOpen(true)}
           />
           {activeApp && renderApp()}
+          {spotlightOpen && !activeApp && (
+            <SpotlightSearch
+              entries={spotlightEntries}
+              onSelect={handleSpotlightSelect}
+              onClose={() => setSpotlightOpen(false)}
+            />
+          )}
           <ScreenDimmer />
           <MobileControlCenter open={controlCenterOpen} onClose={() => setControlCenterOpen(false)} />
           {/* iOS home indicator: tapping it returns to the home screen. */}

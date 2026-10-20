@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import MobileApp from "./MobileApp";
 import { DesktopSettingsProvider } from "../../context/DesktopSettingsContext";
 import { siteConfig } from "../../config/siteConfig";
-import { APP_TITLES, homeScreenApps } from "./mobileTypes";
+import { APPS_PER_PAGE, APP_TITLES, homeScreenApps } from "./mobileTypes";
 
 function renderApp() {
   return render(
@@ -99,18 +99,20 @@ describe("MobileApp", () => {
   });
 
   describe("paging", () => {
-    it("splits the apps across pages with one dot per page", () => {
+    it("shows one dot per page and a Spotlight magnifier", () => {
       bootToHome();
       const pages = screen.getAllByRole("tab");
-      expect(pages.length).toBeGreaterThan(1);
+      expect(pages).toHaveLength(Math.ceil(homeScreenApps.length / APPS_PER_PAGE));
       expect(pages[0]).toHaveAttribute("aria-selected", "true");
-      expect(pages[1]).toHaveAttribute("aria-selected", "false");
+      expect(screen.getByTestId("mobile-spotlight-open")).toBeInTheDocument();
     });
 
-    it("tapping a dot switches to that page", () => {
+    it("Spotlight finds apps, projects and skills, and opens the match", () => {
       bootToHome();
-      fireEvent.click(screen.getByRole("tab", { name: "Page 2" }));
-      expect(screen.getByRole("tab", { name: "Page 2" })).toHaveAttribute("aria-selected", "true");
+      fireEvent.click(screen.getByTestId("mobile-spotlight-open"));
+      fireEvent.change(screen.getByTestId("spotlight-input"), { target: { value: "calc" } });
+      fireEvent.click(screen.getByTestId("spotlight-app:calculator"));
+      expect(screen.getByTestId("mobile-calculator-display")).toBeInTheDocument();
     });
   });
 
@@ -179,7 +181,7 @@ describe("MobileApp", () => {
 
     it("Safari opens an in-OS browser showing the projects live", () => {
       bootToHome();
-      fireEvent.click(screen.getByTestId("app-icon-safari"));
+      fireEvent.click(screen.getByTestId("app-icon-dock-safari"));
       expect(screen.getByTestId("safari-browser")).toBeInTheDocument();
       expect(screen.getByTestId("browser-frame")).toHaveAttribute(
         "src",

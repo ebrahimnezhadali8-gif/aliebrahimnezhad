@@ -3,8 +3,9 @@ import MobileStatusBar from "../StatusBar/MobileStatusBar";
 import AppIcon from "./AppIcon";
 import MobileDock from "../Dock/MobileDock";
 import { APPS_PER_PAGE, ICONS_PER_ROW, homeScreenApps, type MobileIconItem } from "../mobileTypes";
+import Icon from "../../../icons/Icon";
 import { useContent } from "../../../hooks/useContent";
-import type { UiStrings } from "../../../i18n/strings";
+import { appLabel } from "../appLabel";
 import { useDesktopSettings } from "../../../context/DesktopSettingsContext";
 import { chunk } from "../../../utils/chunk";
 import { paginate } from "../../../utils/paginate";
@@ -14,45 +15,14 @@ interface MobileHomeScreenProps {
   onActivate: (item: MobileIconItem) => void;
   /** Tapping the status bar pulls the Control Center down, exactly like iOS. */
   onOpenControlCenter?: () => void;
+  /** Pulling the icon grid down (or tapping the magnifier) opens Spotlight search. */
+  onOpenSpotlight?: () => void;
 }
 
-/** iOS apps keep their brand name; the system apps follow the interface language. */
-function appLabel(t: (key: keyof UiStrings) => string) {
-  return (item: MobileIconItem): string => {
-    switch (item.id) {
-      case "resume":
-        return t("resume");
-      case "notes":
-        return t("notes");
-      case "projects":
-        return t("projectsApp");
-      case "about":
-        return t("aboutApp");
-      case "skills":
-        return t("skills");
-      case "calculator":
-        return t("calculatorApp");
-      case "safari":
-        return t("safari");
-      case "settings":
-        return t("settingsApp");
-      case "dock-messages":
-        return t("messagesApp");
-      case "dock-phone":
-        return t("phone");
-      case "dock-mail":
-        return t("mail");
-      default:
-        // Brand names (GitHub, LinkedIn, Instagram, Telegram) stay as-is in
-        // every language — that is how they are actually written.
-        return item.label;
-    }
-  };
-}
-
-function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenProps) {
+function MobileHomeScreen({ onActivate, onOpenControlCenter, onOpenSpotlight }: MobileHomeScreenProps) {
   const { t } = useContent();
   const { mobileWallpaper } = useDesktopSettings();
+  const pullStart = useRef<{ x: number; y: number } | null>(null);
   const label = useMemo(() => appLabel(t), [t]);
 
   const pages = paginate(homeScreenApps, APPS_PER_PAGE);
@@ -89,6 +59,24 @@ function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenP
         className="mhome__pages"
         ref={scrollerRef}
         onScroll={handleScroll}
+        onPointerDown={(e) => {
+          pullStart.current = { x: e.clientX, y: e.clientY };
+        }}
+        onPointerMove={(e) => {
+          const start = pullStart.current;
+          if (!start || !onOpenSpotlight) return;
+          // A mostly-vertical downward drag, like iOS 4's pull-to-search.
+          if (e.clientY - start.y > 56 && Math.abs(e.clientX - start.x) < 30) {
+            pullStart.current = null;
+            onOpenSpotlight();
+          }
+        }}
+        onPointerUp={() => {
+          pullStart.current = null;
+        }}
+        onPointerCancel={() => {
+          pullStart.current = null;
+        }}
         data-testid="mobile-home-pages"
       >
         {pages.map((apps, pageIndex) => (
@@ -132,6 +120,18 @@ function MobileHomeScreen({ onActivate, onOpenControlCenter }: MobileHomeScreenP
         role="tablist"
         aria-label="Home screen pages"
       >
+        {onOpenSpotlight && (
+          <button
+            type="button"
+            className="mhome__search"
+            aria-label={t("search")}
+            onClick={onOpenSpotlight}
+            data-testid="mobile-spotlight-open"
+            data-cuelume-press
+          >
+            <Icon name="search" />
+          </button>
+        )}
         {pages.map((_, index) => (
           <button
             key={index}

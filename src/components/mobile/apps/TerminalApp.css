@@ -1,0 +1,52 @@
+.terminal-app {
+  height: 100%;
+  background: #0a0c0f;
+  color: #46e06a;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.terminal-app__body {
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px 12px;
+  user-select: text;
+}
+
+.terminal-app__line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
+  direction: ltr;
+  text-align: left;
+}
+
+.terminal-app__line--prompt {
+  color: #b8f5c6;
+}
+
+.terminal-app__inputline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  direction: ltr;
+}
+
+.terminal-app__prompt {
+  flex: 0 0 auto;
+  color: #b8f5c6;
+}
+
+.terminal-app__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  caret-color: #46e06a;
+  padding: 0;
+  direction: ltr;
+  text-align: left;
+}

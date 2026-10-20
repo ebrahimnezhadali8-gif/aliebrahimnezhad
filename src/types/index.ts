@@ -67,6 +67,11 @@ export type IconName =
   | "safari"
   | "settings"
   | "gear"
+  | "contrast"
+  | "search"
+  | "recycle"
+  | "clock"
+  | "terminal"
   | "iosSettings"
   | "ios4Phone"
   | "ios4Mail"
@@ -81,6 +86,8 @@ export type IconName =
   | "ios4Resume"
   | "ios4Linkedin"
   | "ios4Telegram"
+  | "ios4Terminal"
+  | "ios4Clock"
   | "globe";
 
 export type ItemType = "window" | "link";
