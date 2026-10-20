@@ -196,6 +196,13 @@ The site's job is to make that first step frictionless — a clear path from "I 
       type: "window",
       target: "contact",
     },
+    {
+      id: "recycle",
+      label: "recycle bin",
+      icon: "recycle",
+      type: "window",
+      target: "recycle",
+    },
   ] satisfies DesktopItem[],
 
   // Extra items that only appear inside the Start Menu.
@@ -245,6 +252,7 @@ export const windowMeta: Record<string, WindowMeta> = {
   },
   ie: { title: "Internet Explorer", icon: "ie", width: 920, height: 620 },
   settings: { title: "Settings", icon: "settings", width: 520, height: 600 },
+  recycle: { title: "Recycle Bin", icon: "recycle", width: 640, height: 420 },
 };
 
 /** Domain of a project link, e.g. "https://workchi.ir" → "workchi.ir". */

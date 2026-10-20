@@ -1,0 +1,34 @@
+.bsod {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 8vh 8vw;
+  background: #0b53c4;
+  color: #fff;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  cursor: none;
+  user-select: none;
+}
+
+.bsod p {
+  margin: 0 0 18px;
+  max-width: 760px;
+  direction: ltr;
+  text-align: left;
+}
+
+.bsod__face {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.bsod__code {
+  opacity: 0.85;
+  font-size: 13px;
+}
+
+.bsod__hint {
+  margin-top: 36px;
+}

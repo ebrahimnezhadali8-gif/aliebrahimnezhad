@@ -1,4 +1,5 @@
 import { siteConfig } from "../../config/siteConfig";
+import { sortedStats } from "../../utils/analytics";
 
 export type CmdResult =
   | { type: "text"; lines: string[] }
@@ -13,9 +14,24 @@ const HELP_LINES = [
   "  date      Show the current date and time",
   "  dir       List files in the current folder",
   "  whoami    Show the signed-in user and their role",
+  "  stats     Show which windows and apps were opened most",
   "  cls       Clear the screen",
   "  exit      Close the window",
 ];
+
+const MATRIX_GLYPHS = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ0123456789";
+
+/** Deterministic pseudo-random glyph rows, so the "matrix" output is testable. */
+function matrixRows(rows = 8, cols = 36): string[] {
+  let seed = 42;
+  const next = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  return Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => MATRIX_GLYPHS[Math.floor(next() * MATRIX_GLYPHS.length)]).join("")
+  );
+}
 
 /**
  * Interprets a single command line and returns what the terminal should do.
@@ -29,7 +45,33 @@ export function runCommand(rawInput: string, now: Date = new Date()): CmdResult 
     return { type: "text", lines: [] };
   }
 
+  // Easter eggs — deliberately absent from `help`.
+  if (input.toLowerCase().replace(/\s+/g, " ") === "sudo hire-me") {
+    return {
+      type: "text",
+      lines: [
+        "[sudo] password for guest: ********",
+        "Permission granted.",
+        "Drafting offer letter…  done.",
+        `Sending to ${siteConfig.name}…`,
+        `Reply to ${siteConfig.email} to make it official.`,
+      ],
+    };
+  }
+
   switch (command) {
+    case "matrix":
+      return { type: "text", lines: [...matrixRows(), "Wake up, recruiter…", "Follow the white rabbit."] };
+
+    case "stats": {
+      const stats = sortedStats();
+      if (stats.length === 0) return { type: "text", lines: ["No activity recorded yet — open a window first."] };
+      return {
+        type: "text",
+        lines: ["Most opened (this browser only):", ...stats.slice(0, 8).map(([name, count]) => `  ${String(count).padStart(3)}  ${name}`)],
+      };
+    }
+
     case "help":
       return { type: "text", lines: HELP_LINES };
 

@@ -91,6 +91,7 @@ const WINDOW_TITLE_STRINGS: Record<string, keyof UiStrings> = {
   calculator: "calculator",
   ie: "browser",
   settings: "settings",
+  recycle: "recycleBin",
 };
 
 /**
@@ -130,6 +131,8 @@ export function useDesktopItems() {
           return { ...item, label: t("settings") };
         case "phone":
           return { ...item, label: t("contact") };
+        case "recycle":
+          return { ...item, label: t("recycleBin") };
         case "google":
           return { ...item, label: "Google" };
         case "microsoft":

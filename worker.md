@@ -65,3 +65,17 @@
 - **والپیپر:** `ios-wallpaper.svg` حذف شد؛ `aurora.jpg` پیش‌فرض (اندیس ۰) است.
 - **منوی بالا:** دکمه چرخ‌دنده تنظیمات در status bar موبایل (`MobileShellContext`)؛ در خود Settings مخفی است.
 - تست‌ها به‌روز شد (۳۱۵ تست، همه پاس).
+
+---
+
+## 2026-10-20 — انجام همه ایده‌های `idea.md`
+
+- **۵ (هوم ۴×۴):** ۴ ردیف در هر صفحه، اپ‌های جدید Terminal (همان shell ویندوز) و Clock (هر دو تقویم)، Safari به جای GitHub در داک.
+- **۶ (Control Center):** دکمه Dark Mode اضافه شد → ۶ دکمه (۳+۳).
+- **۷ (جستجو):** Spotlight موبایل (کشیدن به پایین روی گرید یا ذره‌بین کنار نقطه‌ها) و جستجو در Start menu دسکتاپ؛ هر دو روی اپ‌ها/پروژه‌ها/مهارت‌ها (`utils/searchEntries.ts`).
+- **۸ (قاب گوشی):** Settings دسکتاپ ← «Phone preview»؛ اسکین موبایل داخل قاب آیفون ۴ (iframe واقعی با viewport ۳۲۰px) و دکمه Home واقعی.
+- **۹ (PDF.js):** `PdfViewer` با `pdfjs-dist` (lazy chunk جدا) برای رزومه دسکتاپ (zoom) و موبایل؛ لینک Open/Download باقی ماند.
+- **۱۰ (Easter egg):** CMD: `matrix` و `sudo hire-me`؛ سه‌بار کلیک روی Start ← Blue Screen؛ Recycle Bin روی دسکتاپ با فایل‌های طنز.
+- **۱۱ (Analytics):** شمارنده محلی بدون کوکی (`utils/analytics.ts`) + دستور `stats` در CMD؛ Plausible فقط اگر `VITE_PLAUSIBLE_DOMAIN` ست شود.
+- **۱۲ (Lint):** متغیر ماژول `openInstanceCount` از `Window.tsx` حذف شد (cascade با effect)؛ هشدارهای react(refs/globals) صفر.
+- تست‌ها: ۳۳۴ تست، همه پاس؛ `tsc` و `build` موفق.

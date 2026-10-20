@@ -1,3 +1,5 @@
+import { useState } from "react";
+import BlueScreen from "../BlueScreen/BlueScreen";
 import StartButton from "./StartButton";
 import TaskbarApp from "./TaskbarApp";
 import Clock from "./Clock";
@@ -15,11 +17,12 @@ function Taskbar() {
     useWindowManager();
   const { t } = useContent();
   const windowTitle = useWindowTitle();
+  const [bsod, setBsod] = useState(false);
   const openIds = Object.keys(openWindows);
 
   return (
     <div id="taskbar" className="taskbar" data-testid="taskbar">
-      <StartButton onClick={toggleStartMenu} />
+      <StartButton onClick={toggleStartMenu} onTripleClick={() => setBsod(true)} />
       <div className="taskbar__sep" />
       <div className="taskbar__items">
         {openIds.map((id) => (
@@ -60,6 +63,7 @@ function Taskbar() {
         aria-label={t("showDesktop")}
         onClick={showDesktop}
       />
+      {bsod && <BlueScreen onDismiss={() => setBsod(false)} />}
     </div>
   );
 }

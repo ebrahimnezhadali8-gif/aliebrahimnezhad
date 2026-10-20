@@ -14,6 +14,7 @@ import CalculatorWindow from "../CalculatorWindow/CalculatorWindow";
 import CmdWindow from "../CmdWindow/CmdWindow";
 import IEWindow from "../IEWindow/IEWindow";
 import SettingsWindow from "../SettingsWindow/SettingsWindow";
+import RecycleBinWindow from "../RecycleBinWindow/RecycleBinWindow";
 import { useDesktopSettings } from "../../context/DesktopSettingsContext";
 import ScreenDimmer from "../ScreenDimmer/ScreenDimmer";
 import "./Desktop.css";
@@ -54,6 +55,7 @@ function DesktopInner({ visible }: { visible: boolean }) {
       <CmdWindow />
       <IEWindow />
       <SettingsWindow />
+      <RecycleBinWindow />
 
       {/* Screen-brightness dimmer. Sits above wallpaper/icons/windows but below
           the taskbar and Start menu, so the shell stays usable when dimmed. */}

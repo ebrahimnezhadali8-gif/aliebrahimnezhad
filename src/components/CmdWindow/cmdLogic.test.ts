@@ -57,4 +57,32 @@ describe("runCommand", () => {
       lines: [fixed.toLocaleDateString(), fixed.toLocaleTimeString()],
     });
   });
+
+  it("hides the easter eggs from help", () => {
+    const result = runCommand("help");
+    if (result.type === "text") {
+      expect(result.lines.join(" ")).not.toMatch(/matrix|hire-me/i);
+    }
+  });
+
+  it("sudo hire-me points to the real email", () => {
+    const result = runCommand("sudo hire-me");
+    expect(result.type).toBe("text");
+    if (result.type === "text") expect(result.lines.join(" ")).toContain(siteConfig.email);
+  });
+
+  it("matrix prints a stable glyph rain", () => {
+    expect(runCommand("matrix")).toEqual(runCommand("matrix"));
+    const result = runCommand("matrix");
+    if (result.type === "text") expect(result.lines.length).toBeGreaterThan(8);
+  });
+
+  it("stats says so when nothing was recorded, and lists counts afterwards", () => {
+    window.localStorage.clear();
+    const empty = runCommand("stats");
+    if (empty.type === "text") expect(empty.lines[0]).toMatch(/no activity/i);
+    window.localStorage.setItem("portfolio:analytics", JSON.stringify({ "window:projects": 3 }));
+    const full = runCommand("stats");
+    if (full.type === "text") expect(full.lines.join(" ")).toContain("window:projects");
+  });
 });

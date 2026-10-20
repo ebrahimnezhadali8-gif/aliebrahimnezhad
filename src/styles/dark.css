@@ -401,3 +401,15 @@
   background: rgba(255, 255, 255, 0.1);
   color: #7fb2ff;
 }
+
+[data-theme="dark"] .start-menu__search-input {
+  background: rgba(0, 0, 0, 0.35);
+  color: #e6e9ef;
+  border-color: rgba(140, 165, 205, 0.35);
+}
+
+[data-theme="dark"] .start-menu__search-icon,
+[data-theme="dark"] .start-menu__kind,
+[data-theme="dark"] .start-menu__empty {
+  color: #9fb0c8;
+}
