@@ -1,0 +1,8 @@
+.minesweeper-window {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: 10px;
+  background: #d8d8d8;
+}

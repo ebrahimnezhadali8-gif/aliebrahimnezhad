@@ -1,0 +1,47 @@
+.solitaire {
+  min-height: 100%;
+  padding: 12px;
+  background: radial-gradient(ellipse at 50% 30%, #1e8a3d, #0b5a24);
+  color: #fff;
+  direction: ltr;
+}
+
+.solitaire__top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.solitaire__spacer {
+  flex: 1 1 auto;
+}
+
+.solitaire__tableau {
+  display: grid;
+  grid-template-columns: repeat(7, 54px);
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.solitaire__column {
+  position: relative;
+  width: 54px;
+}
+
+.solitaire__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  font-size: 12.5px;
+}
+
+.solitaire__bar button {
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+}

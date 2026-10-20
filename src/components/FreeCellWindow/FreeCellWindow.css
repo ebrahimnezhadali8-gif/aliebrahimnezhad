@@ -1,0 +1,12 @@
+.freecell__top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.freecell__cascades {
+  display: grid;
+  grid-template-columns: repeat(8, 54px);
+  gap: 10px;
+  justify-content: space-between;
+}
