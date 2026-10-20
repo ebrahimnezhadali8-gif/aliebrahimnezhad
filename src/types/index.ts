@@ -87,8 +87,21 @@ export type IconName =
   | "ios4Linkedin"
   | "ios4Telegram"
   | "ios4Terminal"
+  | "ios4Calendar"
   | "ios4Instagram"
   | "ios4Clock"
+  | "nero"
+  | "minesweeper"
+  | "solitaire"
+  | "freecell"
+  | "taskmgr"
+  | "paint"
+  | "media"
+  | "photos"
+  | "ios4Photos"
+  | "ios4Music"
+  | "ios4Mines"
+  | "ios4Draw"
   | "globe";
 
 export type ItemType = "window" | "link";
@@ -125,6 +138,12 @@ export interface Project {
   year: string;
   /** Path to the project's own logo/brand image, when one is available. */
   logo?: string;
+}
+
+/** A dated entry shown in the Calendar apps; `date` is an ISO day, e.g. "2026-03-21". */
+export interface CalendarEvent {
+  date: string;
+  title: string;
 }
 
 export interface Skill {

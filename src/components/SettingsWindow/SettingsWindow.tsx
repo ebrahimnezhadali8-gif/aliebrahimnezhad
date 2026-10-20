@@ -21,6 +21,10 @@ function SettingsWindow() {
     setLang,
     phonePreview,
     setPhonePreview,
+    clockGadget,
+    setClockGadget,
+    screensaver,
+    setScreensaver,
     brightnessPercent,
     setBrightness,
     volumePercent,
@@ -111,6 +115,36 @@ function SettingsWindow() {
 
         <section className="settings-window__group">
           <h3 className="settings-window__legend">{t("system")}</h3>
+          <div className="settings-window__row">
+            <span className="settings-window__label" title={t("screensaverHint")}>
+              {t("screensaver")}
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={screensaver}
+              aria-label={t("screensaver")}
+              className={`settings-window__switch ${screensaver ? "settings-window__switch--on" : ""}`}
+              onClick={() => setScreensaver(!screensaver)}
+              data-testid="settings-screensaver"
+            >
+              <span className="settings-window__knob" />
+            </button>
+          </div>
+          <div className="settings-window__row">
+            <span className="settings-window__label">{t("clockGadget")}</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={clockGadget}
+              aria-label={t("clockGadget")}
+              className={`settings-window__switch ${clockGadget ? "settings-window__switch--on" : ""}`}
+              onClick={() => setClockGadget(!clockGadget)}
+              data-testid="settings-clock-gadget"
+            >
+              <span className="settings-window__knob" />
+            </button>
+          </div>
           <div className="settings-window__row">
             <span className="settings-window__label" title={t("phonePreviewHint")}>
               {t("phonePreview")}

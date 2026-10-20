@@ -1,5 +1,6 @@
 import { siteConfig } from "../../config/siteConfig";
 import { sortedStats } from "../../utils/analytics";
+import { loadRecords } from "../MinesweeperWindow/minesweeperLogic";
 
 export type CmdResult =
   | { type: "text"; lines: string[] }
@@ -62,6 +63,16 @@ export function runCommand(rawInput: string, now: Date = new Date()): CmdResult 
   switch (command) {
     case "matrix":
       return { type: "text", lines: [...matrixRows(), "Wake up, recruiter…", "Follow the white rabbit."] };
+
+    case "halloffame": {
+      const records = loadRecords();
+      const entries = Object.entries(records);
+      if (entries.length === 0) return { type: "text", lines: ["Hall of Fame is empty — win a game of Minesweeper!"] };
+      return {
+        type: "text",
+        lines: ["Minesweeper — best times:", ...entries.map(([level, seconds]) => `  ${level.padEnd(14)} ${seconds}s`)],
+      };
+    }
 
     case "stats": {
       const stats = sortedStats();

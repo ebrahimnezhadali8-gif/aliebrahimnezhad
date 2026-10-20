@@ -19,6 +19,8 @@ function SettingsApp({ onBack }: { onBack: () => void }) {
     setCalendar,
     lang,
     setLang,
+    screensaver,
+    setScreensaver,
     brightnessPercent,
     setBrightness,
     volumePercent,
@@ -116,6 +118,20 @@ function SettingsApp({ onBack }: { onBack: () => void }) {
                 </button>
               ))}
             </div>
+          </div>
+          <div className="settings-app__row">
+            <span className="settings-app__label">{t("screensaver")}</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={screensaver}
+              aria-label={t("screensaver")}
+              className="settings-app__switch"
+              data-testid="mobile-settings-screensaver"
+              onClick={() => setScreensaver(!screensaver)}
+            >
+              <span className="settings-app__knob" />
+            </button>
           </div>
           <div className="settings-app__row">
             <span className="settings-app__label">{t("language")}</span>

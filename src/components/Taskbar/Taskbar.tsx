@@ -18,10 +18,20 @@ function Taskbar() {
   const { t } = useContent();
   const windowTitle = useWindowTitle();
   const [bsod, setBsod] = useState(false);
+  const [menu, setMenu] = useState<{ x: number } | null>(null);
   const openIds = Object.keys(openWindows);
 
   return (
-    <div id="taskbar" className="taskbar" data-testid="taskbar">
+    <div
+      id="taskbar"
+      className="taskbar"
+      data-testid="taskbar"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setMenu({ x: Math.min(e.clientX, window.innerWidth - 190) });
+      }}
+    >
       <StartButton onClick={toggleStartMenu} onTripleClick={() => setBsod(true)} />
       <div className="taskbar__sep" />
       <div className="taskbar__items">
@@ -63,6 +73,25 @@ function Taskbar() {
         aria-label={t("showDesktop")}
         onClick={showDesktop}
       />
+      {menu && (
+        <div
+          className="taskbar__menu"
+          style={{ left: menu.x }}
+          onMouseLeave={() => setMenu(null)}
+          data-testid="taskbar-menu"
+        >
+          <button
+            type="button"
+            onClick={() => {
+              openWindow("taskmgr");
+              setMenu(null);
+            }}
+            data-testid="taskbar-open-taskmgr"
+          >
+            {t("taskmgr")}
+          </button>
+        </div>
+      )}
       {bsod && <BlueScreen onDismiss={() => setBsod(false)} />}
     </div>
   );

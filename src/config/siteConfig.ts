@@ -1,4 +1,5 @@
 import type {
+  CalendarEvent,
   DesktopItem,
   Project,
   Skill,
@@ -26,6 +27,16 @@ export const siteConfig = {
     google: "https://google.com",
     microsoft: "https://microsoft.com",
   } satisfies SiteLinks,
+
+  // Screenshots per project id (files live in public/images/projects/<id>/).
+  gallery: {
+    workchi: ["/images/projects/workchi/1.jpg", "/images/projects/workchi/2.jpg"],
+    narvash: ["/images/projects/narvash/1.jpg", "/images/projects/narvash/2.jpg"],
+    boomsv: ["/images/projects/boomsv/1.jpg", "/images/projects/boomsv/2.jpg"],
+  } as Record<string, string[]>,
+
+  // Dated entries for the Calendar apps, e.g. { date: "2026-03-21", title: "Workchi launch" }.
+  events: [] as CalendarEvent[],
 
   stats: {
     experience: "+2",
@@ -197,6 +208,20 @@ The site's job is to make that first step frictionless — a clear path from "I 
       target: "contact",
     },
     {
+      id: "photos",
+      label: "photos",
+      icon: "photos",
+      type: "window",
+      target: "photos",
+    },
+    {
+      id: "minesweeper",
+      label: "minesweeper",
+      icon: "minesweeper",
+      type: "window",
+      target: "minesweeper",
+    },
+    {
       id: "recycle",
       label: "recycle bin",
       icon: "recycle",
@@ -214,6 +239,12 @@ The site's job is to make that first step frictionless — a clear path from "I 
       type: "window",
       target: "settings",
     },
+    { id: "nero", label: "Nero Burning ROM", icon: "nero", type: "window", target: "nero" },
+    { id: "solitaire", label: "Solitaire", icon: "solitaire", type: "window", target: "solitaire" },
+    { id: "freecell", label: "FreeCell", icon: "freecell", type: "window", target: "freecell" },
+    { id: "paint", label: "Paint", icon: "paint", type: "window", target: "paint" },
+    { id: "media", label: "Media Player", icon: "media", type: "window", target: "media" },
+    { id: "taskmgr", label: "Task Manager", icon: "taskmgr", type: "window", target: "taskmgr" },
     {
       id: "google",
       label: "Google",
@@ -253,6 +284,14 @@ export const windowMeta: Record<string, WindowMeta> = {
   ie: { title: "Internet Explorer", icon: "ie", width: 920, height: 620 },
   settings: { title: "Settings", icon: "settings", width: 520, height: 600 },
   recycle: { title: "Recycle Bin", icon: "recycle", width: 640, height: 420 },
+  nero: { title: "Nero Burning ROM", icon: "nero", width: 760, height: 540 },
+  minesweeper: { title: "Minesweeper", icon: "minesweeper", width: 740, height: 560 },
+  solitaire: { title: "Solitaire", icon: "solitaire", width: 660, height: 560 },
+  freecell: { title: "FreeCell", icon: "freecell", width: 700, height: 560 },
+  taskmgr: { title: "Task Manager", icon: "taskmgr", width: 640, height: 480 },
+  paint: { title: "Paint", icon: "paint", width: 760, height: 600 },
+  media: { title: "Media Player", icon: "media", width: 680, height: 440 },
+  photos: { title: "Photos", icon: "photos", width: 760, height: 540 },
 };
 
 /** Domain of a project link, e.g. "https://workchi.ir" → "workchi.ir". */

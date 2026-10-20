@@ -15,6 +15,14 @@ import SafariApp from "./apps/SafariApp";
 import SettingsApp from "./apps/SettingsApp";
 import MessagesApp from "./apps/MessagesApp";
 import TerminalApp from "./apps/TerminalApp";
+import CalendarApp from "./apps/CalendarApp";
+import PhotosApp from "./apps/PhotosApp";
+import MusicApp from "./apps/MusicApp";
+import MinesApp from "./apps/MinesApp";
+import DrawApp from "./apps/DrawApp";
+import LockScreen from "./LockScreen";
+import { useIdle } from "../../hooks/useIdle";
+import { useDesktopSettings } from "../../context/DesktopSettingsContext";
 import ClockApp from "./apps/ClockApp";
 import SpotlightSearch from "./SpotlightSearch";
 import { appLabel } from "./appLabel";
@@ -27,6 +35,9 @@ import { siteConfig } from "../../config/siteConfig";
 import type { SiteLinks } from "../../types";
 import "./MobileApp.css";
 
+/** Inactivity before the lock screen appears. */
+const LOCK_AFTER_MS = 60_000;
+
 /** How far the finger has to travel down from the top edge to open Control Center. */
 const PULL_OPEN_THRESHOLD_PX = 36;
 
@@ -37,6 +48,8 @@ function MobileApp() {
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const pullStartY = useRef<number | null>(null);
   const { t, content } = useContent();
+  const { screensaver } = useDesktopSettings();
+  const { idle, wake } = useIdle(LOCK_AFTER_MS, screensaver && booted);
 
   const goHome = useCallback(() => {
     setSpotlightOpen(false);
@@ -134,7 +147,7 @@ function MobileApp() {
       case "notes":
         return <NotesApp onBack={goHome} />;
       case "projects":
-        return <ProjectsApp onBack={goHome} />;
+        return <ProjectsApp onBack={goHome} onOpenPhotos={() => setActiveApp("photos")} />;
       case "about":
         return <AboutApp onBack={goHome} />;
       case "skills":
@@ -147,6 +160,16 @@ function MobileApp() {
         return <MailApp onBack={goHome} />;
       case "safari":
         return <SafariApp onBack={goHome} />;
+      case "calendar":
+        return <CalendarApp onBack={goHome} />;
+      case "photos":
+        return <PhotosApp onBack={goHome} />;
+      case "music":
+        return <MusicApp onBack={goHome} />;
+      case "mines":
+        return <MinesApp onBack={goHome} />;
+      case "draw":
+        return <DrawApp onBack={goHome} />;
       case "terminal":
         return <TerminalApp onBack={goHome} />;
       case "clock":
@@ -189,6 +212,7 @@ function MobileApp() {
           )}
           <ScreenDimmer />
           <MobileControlCenter open={controlCenterOpen} onClose={() => setControlCenterOpen(false)} />
+          {idle && <LockScreen onUnlock={wake} />}
           {/* iOS home indicator: tapping it returns to the home screen. */}
           <button
             type="button"

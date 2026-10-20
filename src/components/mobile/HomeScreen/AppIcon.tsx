@@ -1,4 +1,5 @@
 import Icon from "../../../icons/Icon";
+import { LiveCalendarIcon, LiveClockIcon } from "./LiveIcons";
 import type { MobileIconItem } from "../mobileTypes";
 import "./AppIcon.css";
 
@@ -35,7 +36,17 @@ function AppIcon({ item, label, onActivate, showLabel = true }: AppIconProps) {
         }
       >
         <span className="app-icon__glyph">
-          <Icon name={item.icon} />
+          {item.id === "clock" ? (
+            <span className="icon icon-live-clock">
+              <LiveClockIcon />
+            </span>
+          ) : item.id === "calendar" ? (
+            <span className="icon icon-live-calendar">
+              <LiveCalendarIcon />
+            </span>
+          ) : (
+            <Icon name={item.icon} />
+          )}
         </span>
       </span>
       {showLabel && <span className="app-icon__label">{text}</span>}

@@ -92,6 +92,14 @@ const WINDOW_TITLE_STRINGS: Record<string, keyof UiStrings> = {
   ie: "browser",
   settings: "settings",
   recycle: "recycleBin",
+  minesweeper: "minesweeper",
+  solitaire: "solitaire",
+  freecell: "freecell",
+  nero: "nero",
+  taskmgr: "taskmgr",
+  paint: "paint",
+  media: "media",
+  photos: "photos",
 };
 
 /**
@@ -133,6 +141,22 @@ export function useDesktopItems() {
           return { ...item, label: t("contact") };
         case "recycle":
           return { ...item, label: t("recycleBin") };
+        case "photos":
+          return { ...item, label: t("photos") };
+        case "minesweeper":
+          return { ...item, label: t("minesweeper") };
+        case "solitaire":
+          return { ...item, label: t("solitaire") };
+        case "freecell":
+          return { ...item, label: t("freecell") };
+        case "nero":
+          return { ...item, label: t("nero") };
+        case "taskmgr":
+          return { ...item, label: t("taskmgr") };
+        case "paint":
+          return { ...item, label: t("paint") };
+        case "media":
+          return { ...item, label: t("media") };
         case "google":
           return { ...item, label: "Google" };
         case "microsoft":

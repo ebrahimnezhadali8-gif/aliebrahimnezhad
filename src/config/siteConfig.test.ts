@@ -13,6 +13,9 @@ const WINDOW_IDS = [
   "cmd",
 ] as const;
 
+// Vite resolves this at build time, so the check needs no Node typings.
+const onDisk = new Set(Object.keys(import.meta.glob("/public/images/projects/**/*.jpg")));
+
 describe("siteConfig integrity", () => {
   it("every desktop item has a unique id, a label and an icon", () => {
     const ids = siteConfig.desktopItems.map((item) => item.id);
@@ -153,5 +156,15 @@ describe("projectDomain", () => {
 describe("wallpaper cycle", () => {
   it("offers more than one wallpaper", () => {
     expect(wallpaperImages.length).toBeGreaterThan(1);
+  });
+
+  it("every gallery screenshot belongs to a project and exists on disk", () => {
+    const projectIds = new Set(siteConfig.projects.map((project) => project.id));
+    for (const [id, images] of Object.entries(siteConfig.gallery)) {
+      expect(projectIds.has(id), `gallery id ${id}`).toBe(true);
+      for (const src of images) {
+        expect(onDisk.has("/public" + src), src).toBe(true);
+      }
+    }
   });
 });

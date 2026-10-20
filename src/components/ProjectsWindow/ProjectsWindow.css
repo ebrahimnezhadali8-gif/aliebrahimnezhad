@@ -272,3 +272,16 @@
   font-size: 11px;
   color: #6a7f9f;
 }
+
+.project-modal__shots {
+  margin-inline-start: 8px;
+  padding: 7px 14px;
+  border: 1px solid #9fb3cc;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #fff, #e4ecf7);
+  color: #1c3f6e;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}

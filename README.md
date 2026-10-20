@@ -322,7 +322,7 @@ Purely presentational components with no real interaction risk (About,
 Skills, Contact display) are left untested, intentionally, to keep the suite
 focused on what actually protects the user experience.
 
-Current status: **334 tests passing across 39 test files.**
+Current status: **431 tests passing across 54 test files.**
 
 ## 8. Notes
 

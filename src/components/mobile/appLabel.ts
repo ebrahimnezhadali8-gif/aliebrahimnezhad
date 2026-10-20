@@ -27,6 +27,16 @@ export function appLabel(t: (key: keyof UiStrings) => string) {
         return t("terminalApp");
       case "clock":
         return t("clockApp");
+      case "calendar":
+        return t("calendarApp");
+      case "photos":
+        return t("photos");
+      case "music":
+        return t("musicApp");
+      case "mines":
+        return t("minesweeper");
+      case "draw":
+        return t("drawApp");
       case "dock-safari":
         return t("safari");
       case "dock-phone":

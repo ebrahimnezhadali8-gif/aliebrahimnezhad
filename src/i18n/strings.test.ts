@@ -43,7 +43,7 @@ describe("ui strings", () => {
 
   it("gives each Persian string a real translation, not the English one", () => {
     // Brand names legitimately stay identical; everything else should change.
-    const brandNames = new Set(["github", "linkedin", "instagram", "telegram", "safari"]);
+    const brandNames = new Set(["github", "linkedin", "instagram", "telegram", "safari", "nero"]);
     const identical = keys.filter(
       (key) => !brandNames.has(key) && uiStrings.fa[key] === uiStrings.en[key]
     );

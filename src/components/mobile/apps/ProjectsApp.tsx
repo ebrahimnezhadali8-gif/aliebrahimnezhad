@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AppScreen from "../AppScreen/AppScreen";
-import { projectDomain } from "../../../config/siteConfig";
+import { requestAlbum } from "../../PhotosWindow/photoBus";
+import { projectDomain, siteConfig } from "../../../config/siteConfig";
 import type { Project } from "../../../types";
 import Icon from "../../../icons/Icon";
 import { useContent } from "../../../hooks/useContent";
@@ -8,9 +9,11 @@ import "./ProjectsApp.css";
 
 interface ProjectsAppProps {
   onBack: () => void;
+  /** Opens the Photos app (the album has already been requested). */
+  onOpenPhotos?: () => void;
 }
 
-function ProjectsApp({ onBack }: ProjectsAppProps) {
+function ProjectsApp({ onBack, onOpenPhotos }: ProjectsAppProps) {
   const { content, t } = useContent();
   const [selected, setSelected] = useState<Project | null>(null);
 
@@ -54,6 +57,19 @@ function ProjectsApp({ onBack }: ProjectsAppProps) {
           >
             {selected.linkLabel}
           </a>
+          {onOpenPhotos && siteConfig.gallery[selected.id]?.length > 0 && (
+            <button
+              type="button"
+              className="projects-app__shots-btn"
+              onClick={() => {
+                requestAlbum(selected.id);
+                onOpenPhotos();
+              }}
+              data-testid="project-view-screenshots"
+            >
+              {t("viewScreenshots")}
+            </button>
+          )}
           <span className="projects-app__domain">{projectDomain(selected.link)}</span>
         </div>
       </AppScreen>

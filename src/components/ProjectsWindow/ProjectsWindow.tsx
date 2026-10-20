@@ -2,6 +2,7 @@ import { useState } from "react";
 import Window from "../Window/Window";
 import ProjectItem from "./ProjectItem";
 import ProjectModal from "./ProjectModal";
+import { requestAlbum } from "../PhotosWindow/photoBus";
 import { windowMeta } from "../../config/siteConfig";
 import type { Project } from "../../types";
 import { useContent } from "../../hooks/useContent";
@@ -37,6 +38,11 @@ function ProjectsWindow() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
         headings={{ highlights: t("highlights"), builtWith: t("builtWith") }}
+        screenshotsLabel={t("viewScreenshots")}
+        onViewScreenshots={(project) => {
+          setSelectedProject(null);
+          requestAlbum(project.id);
+        }}
       />
     </>
   );

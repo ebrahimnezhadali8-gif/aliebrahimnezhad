@@ -31,6 +31,8 @@ import {
 } from "../hooks/useWallpaperCycle";
 import { clampVolume, getVolumeLevel, setVolumeLevel } from "../utils/sound";
 
+const SCREENSAVER_STORAGE_KEY = "portfolio:screensaver";
+const CLOCK_GADGET_STORAGE_KEY = "portfolio:clock-gadget";
 const PHONE_PREVIEW_STORAGE_KEY = "portfolio:phone-preview";
 const WALLPAPER_CYCLE_MS = 2 * 60 * 1000;
 
@@ -70,6 +72,14 @@ export interface DesktopSettingsValue {
   /** Desktop only: show the phone skin inside an iPhone 4 frame (opt-in). */
   phonePreview: boolean;
   setPhonePreview: (on: boolean) => void;
+
+  /** Screensaver (desktop) / lock screen (phone) after a minute of inactivity. */
+  screensaver: boolean;
+  setScreensaver: (on: boolean) => void;
+
+  /** Desktop analog-clock gadget (on by default). */
+  clockGadget: boolean;
+  setClockGadget: (on: boolean) => void;
 
   lang: Language;
   dir: "ltr" | "rtl";
@@ -149,6 +159,14 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
 
   const [phonePreview, setPhonePreviewState] = useState<boolean>(
     () => readStoredString(PHONE_PREVIEW_STORAGE_KEY) === "1"
+  );
+
+  const [clockGadget, setClockGadgetState] = useState<boolean>(
+    () => readStoredString(CLOCK_GADGET_STORAGE_KEY) !== "0"
+  );
+
+  const [screensaver, setScreensaverState] = useState<boolean>(
+    () => readStoredString(SCREENSAVER_STORAGE_KEY) !== "0"
   );
 
   const [lang, setLangState] = useState<Language>(() => {
@@ -274,6 +292,16 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
     writeStored(PHONE_PREVIEW_STORAGE_KEY, on ? "1" : "0");
   }, []);
 
+  const setClockGadget = useCallback((on: boolean) => {
+    setClockGadgetState(on);
+    writeStored(CLOCK_GADGET_STORAGE_KEY, on ? "1" : "0");
+  }, []);
+
+  const setScreensaver = useCallback((on: boolean) => {
+    setScreensaverState(on);
+    writeStored(SCREENSAVER_STORAGE_KEY, on ? "1" : "0");
+  }, []);
+
   const toggleLang = useCallback(() => setLang(lang === "en" ? "fa" : "en"), [lang, setLang]);
 
   const value = useMemo<DesktopSettingsValue>(
@@ -301,6 +329,10 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
       setCalendar,
       phonePreview,
       setPhonePreview,
+      clockGadget,
+      setClockGadget,
+      screensaver,
+      setScreensaver,
       lang,
       dir: directionFor(lang),
       setLang,
@@ -325,6 +357,10 @@ export function DesktopSettingsProvider({ children }: { children: ReactNode }) {
       setCalendar,
       phonePreview,
       setPhonePreview,
+      clockGadget,
+      setClockGadget,
+      screensaver,
+      setScreensaver,
       lang,
       setLang,
       toggleLang,
@@ -367,6 +403,10 @@ export function useDesktopSettings(): DesktopSettingsValue {
       setCalendar: () => {},
       phonePreview: false,
       setPhonePreview: () => {},
+      clockGadget: true,
+      setClockGadget: () => {},
+      screensaver: true,
+      setScreensaver: () => {},
       lang: "en",
       dir: "ltr",
       setLang: () => {},

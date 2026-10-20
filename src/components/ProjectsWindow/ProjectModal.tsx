@@ -1,5 +1,5 @@
 import type { Project } from "../../types";
-import { projectDomain } from "../../config/siteConfig";
+import { projectDomain, siteConfig } from "../../config/siteConfig";
 
 export interface ProjectModalHeadings {
   highlights: string;
@@ -10,9 +10,12 @@ interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
   headings: ProjectModalHeadings;
+  /** Shows a "View screenshots" button when given (and the project has screenshots). */
+  onViewScreenshots?: (project: Project) => void;
+  screenshotsLabel?: string;
 }
 
-function ProjectModal({ project, onClose, headings }: ProjectModalProps) {
+function ProjectModal({ project, onClose, headings, onViewScreenshots, screenshotsLabel }: ProjectModalProps) {
   if (!project) return null;
 
   return (
@@ -73,6 +76,16 @@ function ProjectModal({ project, onClose, headings }: ProjectModalProps) {
           >
             {project.linkLabel} ↗
           </a>
+          {onViewScreenshots && siteConfig.gallery[project.id]?.length > 0 && (
+            <button
+              type="button"
+              className="project-modal__shots"
+              onClick={() => onViewScreenshots(project)}
+              data-testid="project-view-screenshots"
+            >
+              {screenshotsLabel ?? "View screenshots"}
+            </button>
+          )}
           <span className="project-modal__domain">{projectDomain(project.link)}</span>
         </div>
       </div>

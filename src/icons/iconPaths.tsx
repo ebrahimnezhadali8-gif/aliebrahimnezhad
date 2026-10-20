@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import type { IconName } from "../types";
 import { ios4Icons } from "./ios4Icons";
+import { extraIcons } from "./extraIcons";
 
 /**
  * Brand marks below are the *official* logos, downloaded verbatim from the
@@ -628,5 +629,6 @@ sun: (
       <path d="m5 7 5 5-5 5M12.5 17H19" />
     </svg>
   ),
+  ...extraIcons,
   ...ios4Icons,
 };

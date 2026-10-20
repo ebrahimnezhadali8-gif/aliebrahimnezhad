@@ -175,6 +175,68 @@ export const ios4Icons = {
       <circle cx="35" cy="43" r="1.6" fill="#9ab0ff" opacity=".55" />
     </Tile>
   ),
+  ios4Calendar: (
+    <Tile id="i4cal" stops={["#ffffff", "#f4f4f4", "#e2e2e2"]}>
+      <rect width="60" height="17" fill="#d63c32" />
+      <text x="30" y="47" textAnchor="middle" fontSize="31" fontWeight="300" fill="#1c1c1e" fontFamily="Helvetica, Arial, sans-serif">
+        31
+      </text>
+    </Tile>
+  ),
+  ios4Photos: (
+    <Tile id="i4ph2" stops={["#fbfbfb", "#f0f0f0", "#dcdcdc"]}>
+      <g transform="translate(30 30)">
+        {[
+          ["#e5392b", 0],
+          ["#f59a1c", 45],
+          ["#f6d321", 90],
+          ["#7ac943", 135],
+          ["#2fb6a6", 180],
+          ["#2f7ed8", 225],
+          ["#8e44ad", 270],
+          ["#e0559a", 315],
+        ].map(([fill, angle]) => (
+          <ellipse key={String(angle)} cx="0" cy="-12" rx="6.2" ry="11" fill={String(fill)} opacity=".78" transform={`rotate(${angle})`} />
+        ))}
+        <circle r="4" fill="#fff" opacity=".85" />
+      </g>
+    </Tile>
+  ),
+  ios4Music: (
+    <Tile id="i4mu" stops={["#ffffff", "#f1f1f1", "#d9d9d9"]}>
+      <g style={{ filter: SHADOW }}>
+        <rect x="6" y="10" width="48" height="40" rx="8" fill="#f28a1b" />
+        <path d="M24 38V20l16-3v18" fill="none" stroke="#fff" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+        <ellipse cx="21" cy="39" rx="4.6" ry="3.6" fill="#fff" />
+        <ellipse cx="37" cy="36" rx="4.6" ry="3.6" fill="#fff" />
+      </g>
+    </Tile>
+  ),
+  ios4Mines: (
+    <Tile id="i4mi" stops={["#d6dae0", "#9aa1ac", "#5f6672"]}>
+      <g style={{ filter: SHADOW }}>
+        <g stroke="#14161a" strokeWidth="3.6" strokeLinecap="round">
+          <path d="M30 14v32M14 30h32M18.5 18.5l23 23M41.5 18.5l-23 23" />
+        </g>
+        <circle cx="30" cy="30" r="13" fill="#1a1c20" />
+        <circle cx="25.5" cy="25.5" r="3.6" fill="#fff" opacity=".85" />
+        <path d="M44 8v14" stroke="#2a2a2a" strokeWidth="2" />
+        <path d="M44 8l9 4-9 4Z" fill="#e0201b" />
+      </g>
+    </Tile>
+  ),
+  ios4Draw: (
+    <Tile id="i4dr" stops={["#ffffff", "#f6f6f2", "#e5e4dc"]}>
+      <path d="M10 40c6-14 12 4 18-8s10-4 14-12" fill="none" stroke="#2f7ed8" strokeWidth="4" strokeLinecap="round" />
+      <path d="M12 46c8-8 14 0 22-6" fill="none" stroke="#e5392b" strokeWidth="3.2" strokeLinecap="round" />
+      <g style={{ filter: SHADOW }} transform="rotate(38 38 30)">
+        <rect x="34" y="6" width="8" height="34" rx="1.5" fill="#f6c231" />
+        <path d="M34 40h8l-4 9Z" fill="#f1d3a1" />
+        <path d="M36.2 45h3.6l-1.8 4Z" fill="#2a2a2a" />
+        <rect x="34" y="6" width="8" height="6" rx="1.5" fill="#e07a8c" />
+      </g>
+    </Tile>
+  ),
   ios4Terminal: (
     <Tile id="i4tm" stops={["#4a4d54", "#1d1f23", "#08090b"]}>
       <g fill="none" stroke="#46e06a" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: SHADOW }}>

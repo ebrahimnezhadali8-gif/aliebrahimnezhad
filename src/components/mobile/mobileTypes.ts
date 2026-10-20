@@ -12,6 +12,11 @@ export type MobileAppId =
   | "safari"
   | "terminal"
   | "clock"
+  | "calendar"
+  | "photos"
+  | "music"
+  | "mines"
+  | "draw"
   | "messages"
   | "settings";
 
@@ -60,6 +65,11 @@ export const homeScreenApps: MobileIconItem[] = [
   { id: "calculator", label: "Calculator", icon: "ios4Calculator", theme: art, action: { type: "app", app: "calculator" } },
   { id: "terminal", label: "Terminal", icon: "ios4Terminal", theme: art, action: { type: "app", app: "terminal" } },
   { id: "clock", label: "Clock", icon: "ios4Clock", theme: art, action: { type: "app", app: "clock" } },
+  { id: "calendar", label: "Calendar", icon: "ios4Calendar", theme: art, action: { type: "app", app: "calendar" } },
+  { id: "photos", label: "Photos", icon: "ios4Photos", theme: art, action: { type: "app", app: "photos" } },
+  { id: "music", label: "Music", icon: "ios4Music", theme: art, action: { type: "app", app: "music" } },
+  { id: "mines", label: "Minesweeper", icon: "ios4Mines", theme: art, action: { type: "app", app: "mines" } },
+  { id: "draw", label: "Draw", icon: "ios4Draw", theme: art, action: { type: "app", app: "draw" } },
   { id: "github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
   { id: "linkedin", label: "LinkedIn", icon: "ios4Linkedin", theme: art, action: { type: "link", target: "linkedin" } },
   { id: "instagram", label: "Instagram", icon: "ios4Instagram", theme: art, action: { type: "link", target: "instagram" } },
@@ -91,6 +101,11 @@ export const APP_TITLES: Record<MobileAppId, string> = {
   safari: "Safari",
   terminal: "Terminal",
   clock: "Clock",
+  calendar: "Calendar",
+  photos: "Photos",
+  music: "Music",
+  mines: "Minesweeper",
+  draw: "Draw",
   messages: "Messages",
   settings: "Settings",
 };
