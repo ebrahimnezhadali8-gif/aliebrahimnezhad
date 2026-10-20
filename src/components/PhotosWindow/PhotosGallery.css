@@ -1,0 +1,144 @@
+.photos {
+  position: relative;
+  min-height: 100%;
+  padding: 10px;
+  background: #f4f7fb;
+  color: #1c2c46;
+  direction: ltr;
+}
+
+.photos__albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.photos__album {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid #cfdcee;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.photos__album:hover {
+  border-color: #6aa0e6;
+  box-shadow: 0 2px 8px rgba(40, 90, 170, 0.2);
+}
+
+.photos__album img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 3px;
+}
+
+.photos__album-name {
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.photos__album-count {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+}
+
+.photos__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.photos__head button {
+  padding: 4px 10px;
+  border: 1px solid #9fb3cc;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fff, #e4ecf7);
+  color: inherit;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.photos__thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.photos__thumb {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: #dfe7f2;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.photos__thumb:hover {
+  border-color: #3b86e8;
+}
+
+.photos__thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* iPhone variant: tight square grid on black, like iOS 4 Photos. */
+.photos--ios {
+  background: #000;
+  color: #fff;
+  padding: 4px;
+}
+
+.photos--ios .photos__albums,
+.photos--ios .photos__thumbs {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.photos--ios .photos__album {
+  background: #1b1b1d;
+  border-color: #333;
+}
+
+.photos--ios .photos__head button {
+  background: #2a2a2d;
+  border-color: #444;
+  color: #6cb2ff;
+}
+
+.photos--ios .photos__thumb img {
+  aspect-ratio: 1;
+}
+
+[data-theme="dark"] .photos:not(.photos--ios) {
+  background: #14171d;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .photos:not(.photos--ios) .photos__album {
+  background: #1b2029;
+  border-color: #2d3441;
+}

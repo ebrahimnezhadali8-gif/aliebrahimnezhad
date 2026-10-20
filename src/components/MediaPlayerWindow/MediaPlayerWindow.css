@@ -1,0 +1,117 @@
+.wmp {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #0b0e14;
+  color: #e8ecf4;
+  font-size: 12px;
+  direction: ltr;
+}
+
+.wmp__main {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  min-height: 0;
+}
+
+.wmp__playlist {
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #11151d;
+  border-right: 1px solid #222a38;
+}
+
+.wmp__playlist button {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 7px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wmp__playlist button:hover {
+  background: rgba(120, 170, 240, 0.14);
+}
+
+.wmp__playlist button.is-current {
+  background: rgba(70, 130, 230, 0.35);
+}
+
+.wmp__playlist small {
+  opacity: 0.6;
+  font-size: 10.5px;
+}
+
+.wmp__stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px;
+}
+
+.wmp__title {
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.wmp__viz {
+  width: 100%;
+  height: 120px;
+}
+
+.wmp__controls {
+  padding: 8px 12px 10px;
+  background: linear-gradient(180deg, #1b2230, #121722);
+  border-top: 1px solid #2a3344;
+}
+
+.wmp__seek {
+  width: 100%;
+  accent-color: #4a90e8;
+}
+
+.wmp__buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wmp__buttons button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #3a465c;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #3a4660, #232b3c);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wmp__play {
+  width: 40px !important;
+  height: 40px !important;
+  background: linear-gradient(180deg, #5aa0ff, #1f64d0) !important;
+}
+
+.wmp__time {
+  min-width: 90px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.wmp__hint {
+  margin-inline-start: auto;
+  font-size: 10.5px;
+  opacity: 0.5;
+}

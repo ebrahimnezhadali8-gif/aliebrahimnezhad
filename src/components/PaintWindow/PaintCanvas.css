@@ -1,0 +1,112 @@
+.paint {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100%;
+  padding: 8px;
+  background: #e9eef6;
+  color: #1c2c46;
+  font-size: 12px;
+  direction: ltr;
+}
+
+.paint__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.paint__group {
+  display: flex;
+  gap: 4px;
+}
+
+.paint__group button,
+.paint__mail {
+  padding: 4px 10px;
+  border: 1px solid #9fb3cc;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #ffffff, #e4ecf7);
+  color: inherit;
+  font-family: inherit;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.paint__group button.is-active {
+  background: linear-gradient(180deg, #4a90e8, #1c5fc0);
+  border-color: #164a9c;
+  color: #fff;
+}
+
+.paint__size {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.paint__size input {
+  width: 90px;
+}
+
+.paint__palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.paint__swatch {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px #6c7a90;
+  cursor: pointer;
+}
+
+.paint__swatch.is-active {
+  box-shadow: 0 0 0 2px #1c5fc0;
+}
+
+.paint__paper {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid #8ea6c6;
+  background: #8a97ab;
+  padding: 6px;
+}
+
+.paint__canvas {
+  display: block;
+  max-width: none;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.paint--fluid .paint__canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.paint__saved {
+  margin: 0;
+  color: #137a2e;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .paint {
+  background: #181c24;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .paint__group button:not(.is-active),
+[data-theme="dark"] .paint__mail {
+  background: linear-gradient(180deg, #3b4560, #2b3449);
+  border-color: rgba(160, 185, 225, 0.3);
+}

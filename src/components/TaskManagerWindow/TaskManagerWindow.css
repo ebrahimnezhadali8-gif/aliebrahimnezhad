@@ -1,0 +1,152 @@
+.taskmgr {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #f0f0f0;
+  color: #111;
+  font-size: 12px;
+  direction: ltr;
+}
+
+.taskmgr__tabs {
+  display: flex;
+  gap: 2px;
+  padding: 6px 6px 0;
+}
+
+.taskmgr__tabs button {
+  padding: 4px 12px;
+  border: 1px solid #a0a0a0;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  background: #e1e1e1;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.taskmgr__tabs button.is-active {
+  background: #fff;
+  font-weight: 700;
+}
+
+.taskmgr__panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 6px;
+  padding: 8px;
+  border: 1px solid #a0a0a0;
+  background: #fff;
+  overflow: auto;
+}
+
+.taskmgr__list {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #c8c8c8;
+  min-height: 140px;
+}
+
+.taskmgr__row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: default;
+}
+
+.taskmgr__row.is-selected {
+  background: #3399ff;
+  color: #fff;
+}
+
+.taskmgr__empty {
+  padding: 10px;
+  color: #777;
+}
+
+.taskmgr__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.taskmgr__actions button {
+  padding: 4px 12px;
+  border: 1px solid #707070;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f2f2f2, #dcdcdc);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.taskmgr__actions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.taskmgr__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.taskmgr__table th,
+.taskmgr__table td {
+  padding: 3px 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+}
+
+.taskmgr__table th {
+  background: #f4f4f4;
+}
+
+.taskmgr__graph {
+  margin: 0;
+}
+
+.taskmgr__graph svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+  border: 1px solid #333;
+}
+
+.taskmgr__status-bar {
+  padding: 4px 8px;
+  margin-top: 6px;
+  border-top: 1px solid #c8c8c8;
+  background: #ececec;
+  font-size: 11.5px;
+}
+
+[data-theme="dark"] .taskmgr {
+  background: #1b1f27;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .taskmgr__panel,
+[data-theme="dark"] .taskmgr__tabs button.is-active {
+  background: #14171d;
+}
+
+[data-theme="dark"] .taskmgr__tabs button:not(.is-active) {
+  background: #262c37;
+  color: #e6e9ef;
+}
+
+[data-theme="dark"] .taskmgr__table th,
+[data-theme="dark"] .taskmgr__status-bar {
+  background: #202531;
+}
