@@ -45,7 +45,7 @@
   flex: 1 1 auto;
   width: 100%;
   min-height: 0;
-  border: none;
   display: block;
+  overflow: hidden;
   background: #2b2b2b;
 }

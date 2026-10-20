@@ -15,14 +15,14 @@ function OpenOnMount({ id, children }: { id: string; children?: ReactNode }) {
 }
 
 describe("ResumeWindow", () => {
-  it("shows an iframe pointing at /resume.pdf once opened", () => {
+  it("shows the PDF.js viewer once opened", () => {
     renderWithProviders(
       <OpenOnMount id="resume">
         <ResumeWindow />
       </OpenOnMount>
     );
     expect(screen.getByTestId("window-resume")).toBeInTheDocument();
-    expect(screen.getByTitle("resume")).toHaveAttribute("src", "/resume.pdf");
+    expect(screen.getByTestId("pdf-viewer")).toBeInTheDocument();
   });
 
   it("zoom in / zoom out buttons update the displayed percentage", () => {

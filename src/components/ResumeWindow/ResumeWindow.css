@@ -68,19 +68,6 @@
 .resume-window__frame {
   flex: 1 1 auto;
   background: #525659;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.resume-window__scale-wrap {
-  transform-origin: top center;
-  flex: 0 0 auto;
-}
-
-.resume-window__scale-wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
+  overflow: hidden;
+  min-height: 0;
 }

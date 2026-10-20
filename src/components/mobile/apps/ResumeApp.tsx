@@ -1,3 +1,4 @@
+import PdfViewer from "../../PdfViewer/PdfViewer";
 import AppScreen from "../AppScreen/AppScreen";
 import "./ResumeApp.css";
 
@@ -19,7 +20,9 @@ function ResumeApp({ onBack }: ResumeAppProps) {
             Download
           </a>
         </div>
-        <iframe src={RESUME_URL} title="resume" className="resume-app__frame" />
+        <div className="resume-app__frame">
+          <PdfViewer url={RESUME_URL} fallbackHref={RESUME_URL} />
+        </div>
       </div>
     </AppScreen>
   );

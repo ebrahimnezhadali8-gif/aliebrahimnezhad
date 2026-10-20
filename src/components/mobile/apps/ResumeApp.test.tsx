@@ -16,8 +16,8 @@ describe("mobile ResumeApp", () => {
     expect(download).toHaveAttribute("download");
   });
 
-  it("still embeds the PDF inline", () => {
+  it("renders the PDF with PDF.js instead of a native iframe", () => {
     render(<ResumeApp onBack={() => {}} />);
-    expect(screen.getByTitle("resume")).toHaveAttribute("src", "/resume.pdf");
+    expect(screen.getByTestId("pdf-viewer")).toBeInTheDocument();
   });
 });

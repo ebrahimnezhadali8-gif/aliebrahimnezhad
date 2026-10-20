@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PdfViewer from "../PdfViewer/PdfViewer";
 import Window from "../Window/Window";
 import { windowMeta } from "../../config/siteConfig";
 import { zoomIn, zoomOut, ZOOM_MIN, ZOOM_MAX } from "./zoom";
@@ -19,13 +20,9 @@ function ResumeWindow() {
   };
 
   const handlePrint = () => {
-    const iframe = document.getElementById("resume-iframe") as HTMLIFrameElement | null;
-    iframe?.contentWindow?.print();
+    // The PDF is drawn on canvases, so printing goes through the browser's own viewer.
+    window.open(RESUME_PATH, "_blank", "noopener");
   };
-
-  // Emulates real zoom by scaling the iframe and compensating its box size,
-  // since a native PDF renderer inside an iframe can't be driven directly.
-  const scale = zoom / 100;
 
   return (
     <Window id="resume" title={meta.title} icon={meta.icon} width={meta.width} height={meta.height}>
@@ -65,16 +62,7 @@ function ResumeWindow() {
           </button>
         </div>
         <div className="resume-window__frame">
-          <div
-            className="resume-window__scale-wrap"
-            style={{
-              width: `${100 / scale}%`,
-              height: `${100 / scale}%`,
-              transform: `scale(${scale})`,
-            }}
-          >
-            <iframe id="resume-iframe" src={RESUME_PATH} title="resume" />
-          </div>
+          <PdfViewer url={RESUME_PATH} zoom={zoom} fallbackHref={RESUME_PATH} />
         </div>
       </div>
     </Window>
