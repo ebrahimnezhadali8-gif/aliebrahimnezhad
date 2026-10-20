@@ -138,24 +138,41 @@ export const ios4Icons = {
       </Glyph>
     </Tile>
   ),
-  /** The original 2010 Instagram: a retro camera with a rainbow stripe. */
+  /** The classic 2011–2015 Instagram icon: brown leather, rainbow stripe, big lens. */
   ios4Instagram: (
-    <Tile id="i4ig" stops={["#ece1c6", "#c6b088", "#8f7850"]}>
-      <g style={{ filter: SHADOW }}>
-        <rect x="7" y="16" width="46" height="35" rx="5" fill="#f5f0e3" stroke="#5a4632" strokeWidth="1.2" />
-        <path d="M7 21a5 5 0 0 1 5-5h36a5 5 0 0 1 5 5v8H7Z" fill="#5a4632" />
-        <rect x="37" y="19" width="11" height="5" rx="1" fill="#e9e2cf" />
-        <circle cx="15" cy="22" r="2.6" fill="#24201b" />
-        <rect x="7" y="29" width="46" height="1.9" fill="#e63b2e" />
-        <rect x="7" y="30.9" width="46" height="1.9" fill="#f6a21a" />
-        <rect x="7" y="32.8" width="46" height="1.9" fill="#f4d21f" />
-        <rect x="7" y="34.7" width="46" height="1.9" fill="#4cb848" />
-        <rect x="7" y="36.6" width="46" height="1.9" fill="#2f7ed8" />
-        <circle cx="30" cy="38" r="10" fill="#3a3a3f" stroke="#1b1b1e" strokeWidth="1.6" />
-        <circle cx="30" cy="38" r="6.4" fill="#16294d" />
-        <circle cx="30" cy="38" r="4.6" fill="#4f86d6" />
-        <circle cx="28.2" cy="36.2" r="1.5" fill="#fff" opacity=".85" />
-      </g>
+    <Tile id="i4ig" stops={["#f7f2e8", "#e6dccb", "#c9bda6"]}>
+      <defs>
+        <linearGradient id="i4ig-top" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#9a7255" />
+          <stop offset="1" stopColor="#5c3f2c" />
+        </linearGradient>
+        <radialGradient id="i4ig-ring" cx="0.4" cy="0.35" r="0.8">
+          <stop offset="0" stopColor="#6d6d72" />
+          <stop offset="1" stopColor="#101012" />
+        </radialGradient>
+        <radialGradient id="i4ig-glass" cx="0.38" cy="0.32" r="0.85">
+          <stop offset="0" stopColor="#8d9be0" />
+          <stop offset="0.45" stopColor="#323c88" />
+          <stop offset="1" stopColor="#0d1030" />
+        </radialGradient>
+      </defs>
+      <rect width="60" height="25" fill="url(#i4ig-top)" />
+      <rect y="25" width="60" height="1.9" fill="#e5392b" />
+      <rect y="26.9" width="60" height="1.9" fill="#f59a1c" />
+      <rect y="28.8" width="60" height="1.9" fill="#f6d321" />
+      <rect y="30.7" width="60" height="1.9" fill="#4db848" />
+      <rect y="32.6" width="60" height="1.9" fill="#2c7fd6" />
+      <rect x="6" y="6" width="11" height="9" rx="2" fill="#2e211a" />
+      <circle cx="11.5" cy="10.5" r="2.6" fill="#8a6b55" />
+      <text x="22" y="14.5" fontSize="7.5" fontStyle="italic" fontWeight="700" fill="#f3e9da" fontFamily="Helvetica, Arial, sans-serif">
+        Insta
+      </text>
+      <rect x="44" y="6" width="10" height="5" rx="1.5" fill="#efe6d6" />
+      <circle cx="30" cy="38" r="17.5" fill="url(#i4ig-ring)" stroke="#0a0a0b" strokeWidth="1.2" style={{ filter: SHADOW }} />
+      <circle cx="30" cy="38" r="13.2" fill="#17171a" stroke="#4a4a50" strokeWidth="0.8" />
+      <circle cx="30" cy="38" r="10.4" fill="url(#i4ig-glass)" />
+      <ellipse cx="26" cy="33.5" rx="4.2" ry="2.4" fill="#fff" opacity=".35" transform="rotate(-30 26 33.5)" />
+      <circle cx="35" cy="43" r="1.6" fill="#9ab0ff" opacity=".55" />
     </Tile>
   ),
   ios4Terminal: (
