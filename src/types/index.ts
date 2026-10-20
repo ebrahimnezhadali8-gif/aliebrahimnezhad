@@ -87,6 +87,7 @@ export type IconName =
   | "ios4Linkedin"
   | "ios4Telegram"
   | "ios4Terminal"
+  | "ios4Instagram"
   | "ios4Clock"
   | "globe";
 

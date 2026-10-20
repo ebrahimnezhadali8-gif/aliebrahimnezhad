@@ -79,3 +79,18 @@
 - **۱۱ (Analytics):** شمارنده محلی بدون کوکی (`utils/analytics.ts`) + دستور `stats` در CMD؛ Plausible فقط اگر `VITE_PLAUSIBLE_DOMAIN` ست شود.
 - **۱۲ (Lint):** متغیر ماژول `openInstanceCount` از `Window.tsx` حذف شد (cascade با effect)؛ هشدارهای react(refs/globals) صفر.
 - تست‌ها: ۳۳۴ تست، همه پاس؛ `tsc` و `build` موفق.
+
+---
+
+## 2026-10-20 — ۱۱:۱۳
+
+### ایده‌های جدید در `idea.md`
+- بررسی کد فعلی (وجود ClockApp، Settings، PhoneFrame، Browser و …) و اطمینان از اینکه Nero / Minesweeper / Photos / Analog Clock / Calendar هنوز پیاده نشده‌اند.
+- اضافه شدن ایده‌های ۱۳ تا ۲۲: Nero Burning ROM، Minesweeper، Photos، تقویم، ساعت عقربه‌ای (دسکتاپ + موبایل)، بسته بازی‌ها (Solitaire/FreeCell)، Task Manager، Paint، Media Player، Screensaver.
+- فقط مستندات تغییر کرد؛ کدی دست نخورد.
+- نکته: کاربر «آیفون ۷» نوشته بود؛ پروژه روی iOS 4 است و ساعت به همان سبک پیشنهاد شد (در idea.md یادداشت شد).
+
+---
+
+## 2026-10-20
+- آیکون Instagram موبایل به نسخه‌ی ۲۰۱۰ (دوربین رترو با نوار رنگین‌کمانی) تغییر کرد: `ios4Instagram` در `ios4Icons.tsx`. آیکون دسکتاپ دست‌نخورده ماند.

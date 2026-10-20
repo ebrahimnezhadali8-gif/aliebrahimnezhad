@@ -22,7 +22,7 @@ describe("iOS home-screen icons", () => {
   });
 
   it("brand apps carry their real logo, everything else uses iPhone 4 artwork", () => {
-    const officialArtwork = new Set(["github", "instagram"]);
+    const officialArtwork = new Set(["github"]);
     for (const item of [...homeScreenApps, ...dockApps]) {
       if (officialArtwork.has(item.icon)) {
         expect(item.theme.kind).toBe("brand");

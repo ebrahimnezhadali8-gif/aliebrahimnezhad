@@ -62,7 +62,7 @@ export const homeScreenApps: MobileIconItem[] = [
   { id: "clock", label: "Clock", icon: "ios4Clock", theme: art, action: { type: "app", app: "clock" } },
   { id: "github", label: "GitHub", icon: "github", theme: brand, action: { type: "link", target: "github" } },
   { id: "linkedin", label: "LinkedIn", icon: "ios4Linkedin", theme: art, action: { type: "link", target: "linkedin" } },
-  { id: "instagram", label: "Instagram", icon: "instagram", theme: brand, action: { type: "link", target: "instagram" } },
+  { id: "instagram", label: "Instagram", icon: "ios4Instagram", theme: art, action: { type: "link", target: "instagram" } },
   { id: "telegram", label: "Telegram", icon: "ios4Telegram", theme: art, action: { type: "link", target: "telegram" } },
   { id: "settings", label: "Settings", icon: "ios4Settings", theme: art, action: { type: "app", app: "settings" } },
 ];

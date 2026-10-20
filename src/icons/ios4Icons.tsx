@@ -138,6 +138,26 @@ export const ios4Icons = {
       </Glyph>
     </Tile>
   ),
+  /** The original 2010 Instagram: a retro camera with a rainbow stripe. */
+  ios4Instagram: (
+    <Tile id="i4ig" stops={["#ece1c6", "#c6b088", "#8f7850"]}>
+      <g style={{ filter: SHADOW }}>
+        <rect x="7" y="16" width="46" height="35" rx="5" fill="#f5f0e3" stroke="#5a4632" strokeWidth="1.2" />
+        <path d="M7 21a5 5 0 0 1 5-5h36a5 5 0 0 1 5 5v8H7Z" fill="#5a4632" />
+        <rect x="37" y="19" width="11" height="5" rx="1" fill="#e9e2cf" />
+        <circle cx="15" cy="22" r="2.6" fill="#24201b" />
+        <rect x="7" y="29" width="46" height="1.9" fill="#e63b2e" />
+        <rect x="7" y="30.9" width="46" height="1.9" fill="#f6a21a" />
+        <rect x="7" y="32.8" width="46" height="1.9" fill="#f4d21f" />
+        <rect x="7" y="34.7" width="46" height="1.9" fill="#4cb848" />
+        <rect x="7" y="36.6" width="46" height="1.9" fill="#2f7ed8" />
+        <circle cx="30" cy="38" r="10" fill="#3a3a3f" stroke="#1b1b1e" strokeWidth="1.6" />
+        <circle cx="30" cy="38" r="6.4" fill="#16294d" />
+        <circle cx="30" cy="38" r="4.6" fill="#4f86d6" />
+        <circle cx="28.2" cy="36.2" r="1.5" fill="#fff" opacity=".85" />
+      </g>
+    </Tile>
+  ),
   ios4Terminal: (
     <Tile id="i4tm" stops={["#4a4d54", "#1d1f23", "#08090b"]}>
       <g fill="none" stroke="#46e06a" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: SHADOW }}>
