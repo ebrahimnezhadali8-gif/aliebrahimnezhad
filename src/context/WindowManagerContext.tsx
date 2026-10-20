@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import type { WindowState } from "../types";
+import { track } from "../utils/analytics";
 import { playOpenSound, playCloseSound, playMinimizeSound } from "../utils/sound";
 
 interface WindowManagerContextValue {
@@ -34,6 +35,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
 
   const openWindow = useCallback(
     (id: string) => {
+      track("window", id);
       setOpenWindows((prev) => {
         const alreadyOpen = id in prev;
         const nextZ = topZ + 1;

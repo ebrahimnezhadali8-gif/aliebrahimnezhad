@@ -5,8 +5,6 @@ import { useDrag } from "../../hooks/useDrag";
 import { useWindowManager } from "../../context/WindowManagerContext";
 import "./Window.css";
 
-let openInstanceCount = 0;
-
 interface WindowProps {
   id: string;
   title: string;
@@ -39,29 +37,25 @@ function Window({
   const state = openWindows[id];
   const isOpen = Boolean(state) && !state.minimized;
   const zIndex = state?.zIndex ?? 0;
-  const instanceOffset = useRef<number | null>(null);
   const [isMaximized, setIsMaximized] = useState(false);
+  const registered = useRef(false);
 
-  if (instanceOffset.current === null && state) {
-    instanceOffset.current = (openInstanceCount % 6) * 18;
-    openInstanceCount += 1;
-  }
+  const centredX = Math.max(20, (window.innerWidth - width) / 2 - 60);
+  const centredY = Math.max(20, (window.innerHeight - height) / 2 - 60);
+  const { position, setPosition, onMouseDown } = useDrag({ x: centredX, y: centredY });
 
-  const initialX = Math.max(
-    20,
-    (window.innerWidth - width) / 2 - 60 + (instanceOffset.current ?? 0),
-  );
-  const initialY = Math.max(
-    20,
-    (window.innerHeight - height) / 2 - 60 + (instanceOffset.current ?? 0),
-  );
-  const { position, onMouseDown } = useDrag({ x: initialX, y: initialY });
-
+  // Cascade: each newly opened window steps 18px down-right of the previous
+  // one (wrapping every 6), so stacked windows never hide each other's title bars.
   useEffect(() => {
     if (!state) {
-      instanceOffset.current = null;
+      registered.current = false;
+      return;
     }
-  }, [state]);
+    if (registered.current) return;
+    registered.current = true;
+    const offset = ((Object.keys(openWindows).length - 1) % 6) * 18;
+    setPosition({ x: centredX + offset, y: centredY + offset });
+  }, [state, openWindows, setPosition, centredX, centredY]);
 
   if (!isOpen) return null;
 

@@ -5,10 +5,12 @@ import "./styles/theme.css";
 import "./styles/dark.css";
 import App from "./App.tsx";
 import { initSounds } from "./utils/sound";
+import { initAnalytics } from "./utils/analytics";
 
 function Root() {
   useEffect(() => {
     initSounds();
+    initAnalytics();
   }, []);
   return <App />;
 }
